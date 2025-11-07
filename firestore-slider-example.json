@@ -1,0 +1,28 @@
+{
+  "homepageSlider": [
+    {
+      "url": "https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?w=1920&q=80",
+      "alt": "Premium Coconut Oil - Raja Oil",
+      "title": "Welcome to Raja Oil",
+      "description": "Premium Quality Oils for Your Kitchen",
+      "link": "/products",
+      "order": 1
+    },
+    {
+      "url": "https://images.unsplash.com/photo-1608797178974-15b35a64ede9?w=1920&q=80",
+      "alt": "Pure Olive Oil Collection",
+      "title": "100% Pure Olive Oil",
+      "description": "Imported from the finest olive groves",
+      "link": "/products/olive-oil",
+      "order": 2
+    },
+    {
+      "url": "https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?w=1920&q=80",
+      "alt": "Special Offers on Cooking Oils",
+      "title": "Special Offers This Week",
+      "description": "Up to 30% off on selected products",
+      "link": "/specials",
+      "order": 3
+    }
+  ]
+}
