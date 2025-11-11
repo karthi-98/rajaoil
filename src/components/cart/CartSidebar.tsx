@@ -8,9 +8,17 @@ import Image from 'next/image'
 import Link from 'next/link'
 
 export default function CartSidebar() {
-  const { items, itemCount, total, isOpen, closeCart, updateQuantity, removeItem, clearCart } = useCartContext()
+  const { items, itemCount, total, isOpen, closeCart, updateQuantity, removeItem } = useCartContext()
   const sidebarRef = useRef<HTMLDivElement>(null)
   const overlayRef = useRef<HTMLDivElement>(null)
+
+  // Format product name from ID
+  const formatProductName = (productId: string) => {
+    return productId
+      .split('-')
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+      .join(' ')
+  }
 
   useEffect(() => {
     const sidebar = sidebarRef.current
@@ -137,7 +145,7 @@ export default function CartSidebar() {
                   {/* Product Info */}
                   <div className="flex-1 min-w-0">
                     <h3 className="font-medium text-black text-sm truncate">
-                      {item.brand}
+                      {formatProductName(item.productId)}
                     </h3>
                     <p className="text-gray-600 text-xs truncate">
                       {item.name}
@@ -185,14 +193,6 @@ export default function CartSidebar() {
         {/* Footer */}
         {items.length > 0 && (
           <div className="border-t border-gray-200 px-6 py-4 space-y-4">
-            {/* Clear Cart Button */}
-            <button
-              onClick={clearCart}
-              className="w-full text-sm text-red-500 hover:text-red-600 font-medium transition-colors"
-            >
-              Clear Cart
-            </button>
-
             {/* Total */}
             <div className="flex items-center justify-between text-lg font-bold">
               <span className="text-black">Total:</span>

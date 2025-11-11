@@ -2,51 +2,65 @@
 
 import { ShoppingCart, X, Menu } from 'lucide-react'
 import { useState } from 'react'
+import Image from 'next/image'
+import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import { useCartContext } from '@/contexts/CartContext'
 import CartIconAnimation from './cart/CartIconAnimation'
 
 export default function Header() {
-  const [activeMenu, setActiveMenu] = useState('Menu')
+  const pathname = usePathname()
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const { itemCount, openCart, animationTrigger, lastAddedQuantity } = useCartContext()
 
   const menuItems = [
-    { name: 'Menu', href: '#' },
-    { name: 'About', href: '#' },
-    { name: 'Our specials', href: '#' },
-    { name: 'Our locations', href: '#' },
-    { name: 'Blog', href: '#' },
+    { name: 'Home', href: '/' },
+    { name: 'Products', href: '/products' },
+    { name: 'About Us', href: '/about' },
+    { name: 'Contact Us', href: '/contact' },
   ]
 
-  const handleMenuClick = (menuName: string) => {
-    setActiveMenu(menuName)
+  const handleMenuClick = () => {
     setMobileMenuOpen(false)
   }
 
+  const isActive = (href: string) => {
+    if (href === '/') {
+      return pathname === '/'
+    }
+    return pathname.startsWith(href)
+  }
+
   return (
-    <header className="sticky top-0 z-30 w-full bg-white border-b border-gray-200 shadow-sm">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between py-5">
+    <header className="sticky top-0 z-30 w-full bg-white border-b border-gray-200 shadow-sm h-[10vh]">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full">
+        <div className="flex items-center justify-between h-full">
           {/* Logo */}
-          <div className="flex-shrink-0">
-            <h1 className="text-2xl font-bold text-black">Raja Oil</h1>
-          </div>
+          <Link href="/" className="flex-shrink-0">
+            <Image
+              src="/images/logo.png"
+              alt="Sreerajaganapathy Oil Mill"
+              width={200}
+              height={60}
+              className="h-18 w-auto"
+              priority
+            />
+          </Link>
 
           {/* Desktop Navigation Menu */}
           <nav className="hidden md:flex space-x-2">
             {menuItems.map((item) => (
-              <a
+              <Link
                 key={item.name}
                 href={item.href}
-                onClick={() => setActiveMenu(item.name)}
-                className={`px-4 py-2 rounded-md text-[17px] font-medium transition-all duration-200 ${
-                  activeMenu === item.name
-                    ? 'text-primary'
-                    : 'text-black hover:text-primary'
+                className={`px-4 py-2 rounded-md text-[15px] font-medium transition-all duration-200 ${
+                  isActive(item.href)
+                    ? 'bg-primary text-white'
+                    : 'text-black hover:text-primary hover:bg-primary/5'
                 }`}
               >
                 {item.name}
-              </a>
+              </Link>
             ))}
           </nav>
 
@@ -104,18 +118,18 @@ export default function Header() {
         <div className="md:hidden bg-white border-t border-gray-200">
           <nav className="px-4 py-4 space-y-2">
             {menuItems.map((item) => (
-              <a
+              <Link
                 key={item.name}
                 href={item.href}
-                onClick={() => handleMenuClick(item.name)}
+                onClick={handleMenuClick}
                 className={`block px-4 py-3 rounded-md text-[14px] font-medium transition-all duration-200 ${
-                  activeMenu === item.name
-                    ? 'text-primary'
-                    : 'text-black hover:text-primary'
+                  isActive(item.href)
+                    ? 'bg-primary text-white'
+                    : 'text-black hover:text-primary hover:bg-primary/5'
                 }`}
               >
                 {item.name}
-              </a>
+              </Link>
             ))}
           </nav>
         </div>

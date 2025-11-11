@@ -9,7 +9,6 @@ import {
   listAll,
   getMetadata,
   updateMetadata,
-  UploadTask,
 } from 'firebase/storage'
 import { storage } from '@/lib/firebase/config'
 import type { UploadProgress, UploadResult } from '@/lib/types/firebase.types'

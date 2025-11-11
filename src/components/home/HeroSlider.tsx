@@ -37,7 +37,7 @@ export default function HeroSlider() {
       console.log('📸 Number of slides:', data.homepageSlider.length)
 
       // Convert array to proper format (handle both string URLs and objects)
-      const normalizedSlides = data.homepageSlider.map((item: any, index: number) => {
+      const normalizedSlides = data.homepageSlider.map((item: string | SliderImage, index: number) => {
         // If item is a string (just URL), convert to object
         if (typeof item === 'string') {
           return {
@@ -48,7 +48,7 @@ export default function HeroSlider() {
         }
         // If already an object, ensure it has required fields
         return {
-          url: item.url || item,
+          url: item.url || '',
           alt: item.alt || `Slide ${index + 1}`,
           title: item.title,
           description: item.description,
@@ -70,64 +70,113 @@ export default function HeroSlider() {
   // Loading state
   if (loading) {
     return (
-      <div className="w-full h-[calc(100vh-4rem)] bg-gray-200 animate-pulse flex items-center justify-center">
-        <div className="text-gray-500">Loading slider...</div>
-      </div>
+      <section className="w-full relative px-4 sm:px-6 lg:px-8 py-6 pb-2">
+        <div className="max-w-[1600px] mx-auto">
+          <div className="w-full h-[80vh] bg-gray-200 animate-pulse flex items-center justify-center rounded-2xl shadow-lg">
+            <div className="text-gray-500">Loading slider...</div>
+          </div>
+        </div>
+      </section>
     )
   }
 
   // Error state
   if (error) {
     return (
-      <div className="w-full h-[calc(100vh-4rem)] bg-gray-100 flex items-center justify-center">
-        <div className="text-center">
-          <p className="text-red-600 font-semibold">Failed to load slider</p>
-          <p className="text-gray-600 text-sm mt-2">{error.message}</p>
+      <section className="w-full relative px-4 sm:px-6 lg:px-8 py-6 pb-2">
+        <div className="max-w-[1600px] mx-auto">
+          <div className="w-full h-[80vh] bg-gray-100 flex items-center justify-center rounded-2xl shadow-lg">
+            <div className="text-center">
+              <p className="text-red-600 font-semibold">Failed to load slider</p>
+              <p className="text-gray-600 text-sm mt-2">{error.message}</p>
+            </div>
+          </div>
         </div>
-      </div>
+      </section>
     )
   }
 
   // No slides state
   if (!slides || slides.length === 0) {
     return (
-      <div className="w-full h-[calc(100vh-4rem)] bg-gray-100 flex items-center justify-center">
-        <div className="text-center">
-          <p className="text-gray-600">No slider images available</p>
-          <p className="text-gray-500 text-sm mt-2">
-            Add images to Firestore: rajaoil → others → homepageSlider
-          </p>
+      <section className="w-full relative px-4 sm:px-6 lg:px-8 py-6 pb-2">
+        <div className="max-w-[1600px] mx-auto">
+          <div className="w-full h-[80vh] bg-gray-100 flex items-center justify-center rounded-2xl shadow-lg">
+            <div className="text-center">
+              <p className="text-gray-600">No slider images available</p>
+              <p className="text-gray-500 text-sm mt-2">
+                Add images to Firestore: rajaoil → others → homepageSlider
+              </p>
+            </div>
+          </div>
         </div>
-      </div>
+      </section>
     )
   }
 
   return (
-    <section className="w-full relative">
-      <Swiper
-        modules={[Autoplay, Pagination, Navigation, EffectFade]}
-        spaceBetween={0}
-        slidesPerView={1}
-        effect="fade"
-        fadeEffect={{ crossFade: true }}
-        autoplay={{
-          delay: 5000,
-          disableOnInteraction: false,
-        }}
-        pagination={{
-          clickable: true,
-          dynamicBullets: true,
-        }}
-        navigation={true}
-        loop={slides.length > 1}
-        className="hero-swiper"
-      >
-        {slides.map((slide, index) => (
-          <SwiperSlide key={index}>
-            <SlideContent slide={slide} />
-          </SwiperSlide>
-        ))}
-      </Swiper>
+    <section className="w-full relative px-4 sm:px-6 lg:px-8 py-6 pb-2">
+      <div className="max-w-[1600px] mx-auto">
+        <div className="relative">
+          <Swiper
+            modules={[Autoplay, Pagination, Navigation, EffectFade]}
+            spaceBetween={0}
+            slidesPerView={1}
+            effect="fade"
+            fadeEffect={{ crossFade: true }}
+            autoplay={{
+              delay: 5000,
+              disableOnInteraction: false,
+            }}
+            pagination={{
+              clickable: true,
+              dynamicBullets: false,
+              el: '.hero-swiper-pagination',
+            }}
+            navigation={{
+              nextEl: '.hero-swiper-button-next',
+              prevEl: '.hero-swiper-button-prev',
+            }}
+            loop={slides.length > 1}
+            className="hero-swiper-main rounded-2xl overflow-hidden shadow-lg"
+          >
+            {slides.map((slide, index) => (
+              <SwiperSlide key={index}>
+                <SlideContent slide={slide} />
+              </SwiperSlide>
+            ))}
+          </Swiper>
+
+          {/* Custom Navigation Buttons */}
+          {slides.length > 1 && (
+            <>
+              <button
+                type="button"
+                aria-label="Previous slide"
+                className="hero-swiper-button-prev absolute left-4 top-1/2 -translate-y-1/2 z-10 bg-white hover:bg-primary hover:text-white text-gray-800 w-12 h-12 rounded-full shadow-xl flex items-center justify-center transition-all duration-300 group"
+              >
+                <svg className="w-6 h-6 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M15 19l-7-7 7-7" />
+                </svg>
+              </button>
+              <button
+                type="button"
+                aria-label="Next slide"
+                className="hero-swiper-button-next absolute right-4 top-1/2 -translate-y-1/2 z-10 bg-white hover:bg-primary hover:text-white text-gray-800 w-12 h-12 rounded-full shadow-xl flex items-center justify-center transition-all duration-300 group"
+              >
+                <svg className="w-6 h-6 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
+                </svg>
+              </button>
+            </>
+          )}
+        </div>
+
+        {/* Premium Pagination Below Slider */}
+        {slides.length > 1 && (
+          <div className="hero-swiper-pagination flex justify-center gap-2 mt-6"></div>
+        )}
+      </div>
     </section>
   )
 }
@@ -145,7 +194,7 @@ function SlideContent({ slide }: SlideContentProps) {
   console.log('🖼️ Rendering slide with URL:', slide.url)
 
   const slideContent = (
-    <div className="relative w-full h-[calc(100vh-4rem)] overflow-hidden">
+    <div className="relative w-full h-[80vh] overflow-hidden">
       {/* Background Image */}
       <img
         src={slide.url}

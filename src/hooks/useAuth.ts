@@ -46,9 +46,10 @@ export function useAuth(): UseAuthReturn {
       setError(null)
       const user = await AuthService.signUp(credentials)
       setUser(user)
-    } catch (err: any) {
-      setError(err)
-      throw err
+    } catch (err) {
+      const error = err as AuthError
+      setError(error)
+      throw error
     } finally {
       setLoading(false)
     }
@@ -61,9 +62,10 @@ export function useAuth(): UseAuthReturn {
       setError(null)
       const user = await AuthService.signIn(credentials)
       setUser(user)
-    } catch (err: any) {
-      setError(err)
-      throw err
+    } catch (err) {
+      const error = err as AuthError
+      setError(error)
+      throw error
     } finally {
       setLoading(false)
     }
@@ -76,9 +78,10 @@ export function useAuth(): UseAuthReturn {
       setError(null)
       const user = await AuthService.signInWithGoogle()
       setUser(user)
-    } catch (err: any) {
-      setError(err)
-      throw err
+    } catch (err) {
+      const error = err as AuthError
+      setError(error)
+      throw error
     } finally {
       setLoading(false)
     }
@@ -91,9 +94,10 @@ export function useAuth(): UseAuthReturn {
       setError(null)
       await AuthService.signOut()
       setUser(null)
-    } catch (err: any) {
-      setError(err)
-      throw err
+    } catch (err) {
+      const error = err as AuthError
+      setError(error)
+      throw error
     } finally {
       setLoading(false)
     }
@@ -105,9 +109,10 @@ export function useAuth(): UseAuthReturn {
       setLoading(true)
       setError(null)
       await AuthService.resetPassword(email)
-    } catch (err: any) {
-      setError(err)
-      throw err
+    } catch (err) {
+      const error = err as AuthError
+      setError(error)
+      throw error
     } finally {
       setLoading(false)
     }
@@ -119,9 +124,10 @@ export function useAuth(): UseAuthReturn {
       setLoading(true)
       setError(null)
       await AuthService.updateUserPassword(newPassword)
-    } catch (err: any) {
-      setError(err)
-      throw err
+    } catch (err) {
+      const error = err as AuthError
+      setError(error)
+      throw error
     } finally {
       setLoading(false)
     }
@@ -138,9 +144,10 @@ export function useAuth(): UseAuthReturn {
         if (user) {
           setUser({ ...user, ...updates })
         }
-      } catch (err: any) {
-        setError(err)
-        throw err
+      } catch (err) {
+        const error = err as AuthError
+        setError(error)
+        throw error
       } finally {
         setLoading(false)
       }
@@ -154,9 +161,10 @@ export function useAuth(): UseAuthReturn {
       setLoading(true)
       setError(null)
       await AuthService.resendVerificationEmail()
-    } catch (err: any) {
-      setError(err)
-      throw err
+    } catch (err) {
+      const error = err as AuthError
+      setError(error)
+      throw error
     } finally {
       setLoading(false)
     }

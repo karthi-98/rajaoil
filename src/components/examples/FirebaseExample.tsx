@@ -229,7 +229,7 @@ function FirestoreExample() {
           <ol className="list-decimal ml-6 mt-2">
             <li>Go to Firebase Console</li>
             <li>Navigate to Firestore Database</li>
-            <li>Create a collection named "products"</li>
+            <li>Create a collection named &quot;products&quot;</li>
             <li>Add a document with fields like: name, price, description, etc.</li>
           </ol>
         </div>
@@ -274,8 +274,8 @@ function StorageExample() {
       const result = await uploadImage(file, 'products')
       setUploadedUrl(result.url)
       console.log('Image uploaded successfully:', result)
-    } catch (error: any) {
-      setUploadError(error.message)
+    } catch (error) {
+      setUploadError(error instanceof Error ? error.message : 'Upload failed')
       console.error('Upload error:', error)
     }
   }

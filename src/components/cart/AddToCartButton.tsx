@@ -1,17 +1,26 @@
 'use client'
 
 import { useCartContext } from '@/contexts/CartContext'
-import type { Product } from '@/lib/types'
 
 interface AddToCartButtonProps {
-  product: Product
+  productId: string
+  variantId: string
+  brand: string
+  name: string
+  price: number
+  image: string
   quantity?: number
   className?: string
   children?: React.ReactNode
 }
 
 export default function AddToCartButton({
-  product,
+  productId,
+  variantId,
+  brand,
+  name,
+  price,
+  image,
   quantity = 1,
   className = '',
   children = 'Add to Cart',
@@ -19,7 +28,17 @@ export default function AddToCartButton({
   const { addItem } = useCartContext()
 
   const handleClick = () => {
-    addItem(product, quantity)
+    addItem(
+      {
+        id: variantId,
+        productId,
+        brand,
+        name,
+        price,
+        image,
+      },
+      quantity
+    )
   }
 
   return (

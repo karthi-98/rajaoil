@@ -245,7 +245,7 @@ export default function CheckoutPage() {
                         Order via WhatsApp
                       </p>
                       <p className="text-sm text-green-700">
-                        Your order will be sent to our WhatsApp number. We'll confirm your order
+                        Your order will be sent to our WhatsApp number. We&apos;ll confirm your order
                         and delivery details shortly.
                       </p>
                     </div>

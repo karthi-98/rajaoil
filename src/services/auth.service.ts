@@ -69,7 +69,7 @@ export class AuthService {
       await sendEmailVerification(firebaseUser)
 
       return this.mapFirebaseUserToUser(firebaseUser)
-    } catch (error: any) {
+    } catch (error) {
       throw this.handleAuthError(error)
     }
   }
@@ -92,7 +92,7 @@ export class AuthService {
       })
 
       return this.mapFirebaseUserToUser(userCredential.user)
-    } catch (error: any) {
+    } catch (error) {
       throw this.handleAuthError(error)
     }
   }
@@ -136,7 +136,7 @@ export class AuthService {
       }
 
       return this.mapFirebaseUserToUser(firebaseUser)
-    } catch (error: any) {
+    } catch (error) {
       throw this.handleAuthError(error)
     }
   }
@@ -147,7 +147,7 @@ export class AuthService {
   static async signOut(): Promise<void> {
     try {
       await firebaseSignOut(auth)
-    } catch (error: any) {
+    } catch (error) {
       throw this.handleAuthError(error)
     }
   }
@@ -158,7 +158,7 @@ export class AuthService {
   static async resetPassword(email: string): Promise<void> {
     try {
       await sendPasswordResetEmail(auth, email)
-    } catch (error: any) {
+    } catch (error) {
       throw this.handleAuthError(error)
     }
   }
@@ -174,7 +174,7 @@ export class AuthService {
       }
 
       await updatePassword(user, newPassword)
-    } catch (error: any) {
+    } catch (error) {
       throw this.handleAuthError(error)
     }
   }
@@ -200,7 +200,7 @@ export class AuthService {
         ...updates,
         updatedAt: serverTimestamp(),
       })
-    } catch (error: any) {
+    } catch (error) {
       throw this.handleAuthError(error)
     }
   }
@@ -223,7 +223,7 @@ export class AuthService {
 
       // Delete user from Firebase Auth
       await deleteUser(user)
-    } catch (error: any) {
+    } catch (error) {
       throw this.handleAuthError(error)
     }
   }
@@ -258,7 +258,7 @@ export class AuthService {
         createdAt: data.createdAt?.toDate() || new Date(),
         updatedAt: data.updatedAt?.toDate() || new Date(),
       }
-    } catch (error: any) {
+    } catch (error) {
       console.error('Error fetching user profile:', error)
       return null
     }
@@ -288,7 +288,7 @@ export class AuthService {
       }
 
       await sendEmailVerification(user)
-    } catch (error: any) {
+    } catch (error) {
       throw this.handleAuthError(error)
     }
   }
@@ -313,9 +313,9 @@ export class AuthService {
   /**
    * Handle Firebase Auth errors and convert to friendly messages
    */
-  private static handleAuthError(error: any): AuthError {
-    const errorCode = error.code || 'unknown'
-    let message = error.message || 'An unknown error occurred'
+  private static handleAuthError(error: unknown): AuthError {
+    const errorCode = (error as { code?: string }).code || 'unknown'
+    let message = (error as { message?: string }).message || 'An unknown error occurred'
 
     // Map Firebase error codes to user-friendly messages
     switch (errorCode) {

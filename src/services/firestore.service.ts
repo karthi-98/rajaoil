@@ -100,7 +100,7 @@ export class FirestoreService {
     filters: Array<{
       field: string
       operator: WhereFilterOp
-      value: any
+      value: unknown
     }>,
     orderByField?: string,
     orderDirection: 'asc' | 'desc' = 'asc',
@@ -144,7 +144,7 @@ export class FirestoreService {
     filters?: Array<{
       field: string
       operator: WhereFilterOp
-      value: any
+      value: unknown
     }>,
     orderByField: string = 'createdAt',
     orderDirection: 'asc' | 'desc' = 'desc'
@@ -248,7 +248,7 @@ export class FirestoreService {
       await this.updateDocument(collectionName, documentId, {
         deleted: true,
         deletedAt: serverTimestamp(),
-      } as any)
+      } as Record<string, unknown>)
     } catch (error) {
       console.error(
         `Error soft deleting document from ${collectionName}:`,
@@ -336,7 +336,7 @@ export class FirestoreService {
     }
 
     // Convert Firestore Timestamps to Date objects
-    const mappedData: any = { id: doc.id }
+    const mappedData: Record<string, unknown> = { id: doc.id }
 
     for (const [key, value] of Object.entries(data)) {
       if (value instanceof Timestamp) {

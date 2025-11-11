@@ -1,112 +1,52 @@
-'use client'
-
-import { useState, useEffect } from 'react'
-import { useParams, useRouter } from 'next/navigation'
-import { ArrowLeft, ShoppingCart, Check } from 'lucide-react'
-import Link from 'next/link'
-import ProductImageSlider from '@/components/product/ProductImageSlider'
+import { notFound } from 'next/navigation'
 import { ProductService } from '@/services/product.service'
-import { useCartContext } from '@/contexts/CartContext'
-import type { Product, ProductType } from '@/lib/types'
+import { Breadcrumb } from '@/components/layout/Breadcrumb'
+import { ProductPurchaseSection } from '@/components/product/ProductPurchaseSection'
+import ProductImageSlider from '@/components/product/ProductImageSlider'
+import ProductCard from '@/components/product/ProductCard'
+import type { Metadata } from 'next'
 
-export default function ProductDetailPage() {
-  const params = useParams()
-  const router = useRouter()
-  const { addItem } = useCartContext()
-
-  const [product, setProduct] = useState<Product | null>(null)
-  const [loading, setLoading] = useState(true)
-  const [selectedVariants, setSelectedVariants] = useState<ProductType[]>([])
-
-  useEffect(() => {
-    const fetchProduct = async () => {
-      if (!params.id) return
-
-      setLoading(true)
-      const fetchedProduct = await ProductService.getProductById(params.id as string)
-      setProduct(fetchedProduct)
-      setLoading(false)
-    }
-
-    fetchProduct()
-  }, [params.id])
-
-  const handleVariantToggle = (variant: ProductType) => {
-    setSelectedVariants((prev) => {
-      const exists = prev.find((v) => v.name === variant.name)
-      if (exists) {
-        return prev.filter((v) => v.name !== variant.name)
-      } else {
-        return [...prev, variant]
-      }
-    })
+interface ProductPageProps {
+  params: {
+    id: string
   }
+}
 
-  const isVariantSelected = (variant: ProductType) => {
-    return selectedVariants.some((v) => v.name === variant.name)
-  }
-
-  const formatPrice = (price: string | number) => {
-    const numPrice = typeof price === 'string' ? parseFloat(price) : price
-    return new Intl.NumberFormat('en-IN', {
-      style: 'currency',
-      currency: 'INR',
-      maximumFractionDigits: 0,
-    }).format(numPrice)
-  }
-
-  const getTotalPrice = () => {
-    return selectedVariants.reduce((sum, variant) => sum + parseFloat(variant.price), 0)
-  }
-
-  const handleAddToCart = () => {
-    if (!product || selectedVariants.length === 0) {
-      alert('Please select at least one variant')
-      return
-    }
-
-    // Add each selected variant as a separate cart item
-    selectedVariants.forEach((variant) => {
-      addItem(
-        {
-          id: `${product.id}-${variant.name}`,
-          productId: product.id,
-          brand: product.brand,
-          name: variant.name,
-          price: parseFloat(variant.price),
-          image: variant.image || product.mainImage,
-        },
-        1
-      )
-    })
-
-    // Clear selections after adding
-    setSelectedVariants([])
-    alert('Items added to cart!')
-  }
-
-  if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
-      </div>
-    )
-  }
+// Generate metadata for SEO
+export async function generateMetadata({ params }: ProductPageProps): Promise<Metadata> {
+  const decodedId = decodeURIComponent(params.id.replace(/-/g, ' '))
+  const product = await ProductService.getProductById(decodedId)
 
   if (!product) {
-    return (
-      <div className="min-h-screen flex flex-col items-center justify-center">
-        <h1 className="text-2xl font-bold text-gray-900 mb-4">Product Not Found</h1>
-        <Link
-          href="/"
-          className="inline-flex items-center gap-2 text-primary hover:underline"
-        >
-          <ArrowLeft className="w-4 h-4" />
-          Back to Home
-        </Link>
-      </div>
-    )
+    return {
+      title: 'Product Not Found',
+    }
   }
+
+  return {
+    title: `${product.brand} - Premium Cooking Oil | Raja Oil`,
+    description: product.description || `Buy ${product.brand} online. Premium quality cooking oil with various packaging sizes available.`,
+    openGraph: {
+      title: product.brand,
+      description: product.description || `Premium ${product.brand} cooking oil`,
+      images: [{ url: product.mainImage, width: 1200, height: 630 }],
+    },
+  }
+}
+
+export default async function ProductDetailPage({ params }: ProductPageProps) {
+  const decodedId = decodeURIComponent(params.id.replace(/-/g, ' '))
+  const product = await ProductService.getProductById(decodedId)
+
+  if (!product) {
+    notFound()
+  }
+
+  // Fetch related products
+  const allProducts = await ProductService.getAllProducts()
+  const relatedProducts = allProducts
+    .filter((p) => p.id !== product.id)
+    .slice(0, 4)
 
   // Get all variant images for slider
   const allImages = [
@@ -114,120 +54,84 @@ export default function ProductDetailPage() {
     ...product.types.map((type) => type.image).filter(Boolean),
   ]
 
-  return (
-    <div className="min-h-screen bg-gray-50 py-8">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Back Button */}
-        <Link
-          href="/"
-          className="inline-flex items-center gap-2 text-gray-600 hover:text-primary mb-6 transition-colors"
-        >
-          <ArrowLeft className="w-4 h-4" />
-          Back to Products
-        </Link>
+  const breadcrumbItems = [
+    { label: 'Products', href: '/products' },
+    { label: product.brand, href: `/products/${params.id}` },
+  ]
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          {/* Left Side - Image Slider */}
-          <div className="bg-white p-6 rounded-lg shadow-sm">
+  return (
+    <div className="min-h-screen bg-white">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {/* Breadcrumbs */}
+        <Breadcrumb items={breadcrumbItems} />
+
+        {/* Product Section */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 mb-16">
+          {/* Left Side - Image Gallery */}
+          <div>
             <ProductImageSlider images={allImages} productName={product.brand} />
           </div>
 
-          {/* Right Side - Product Info */}
-          <div className="bg-white p-6 rounded-lg shadow-sm">
-            {/* Brand Name */}
-            <h1 className="text-3xl font-bold text-gray-900 mb-4">{product.brand}</h1>
+          {/* Right Side - Product Info & Purchase */}
+          <div>
+            <h1 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
+              {product.brand}
+            </h1>
 
-            {/* Description if available */}
             {product.description && (
-              <p className="text-gray-600 mb-6">{product.description}</p>
+              <p className="text-lg text-gray-600 mb-8 leading-relaxed">
+                {product.description}
+              </p>
             )}
 
-            {/* Variants Selection */}
-            <div className="mb-6">
-              <h2 className="text-xl font-semibold text-gray-900 mb-4">
-                Select Packaging Type{selectedVariants.length > 0 && 's'}
-              </h2>
-
-              <div className="space-y-3">
-                {product.types.map((variant, index) => {
-                  const selected = isVariantSelected(variant)
-
-                  return (
-                    <button
-                      key={index}
-                      onClick={() => handleVariantToggle(variant)}
-                      className={`w-full p-4 rounded-lg border-2 transition-all text-left ${
-                        selected
-                          ? 'border-primary bg-primary/5'
-                          : 'border-gray-200 hover:border-primary/50'
-                      }`}
-                    >
-                      <div className="flex items-center justify-between">
-                        <div className="flex-1">
-                          <h3 className="font-semibold text-gray-900 mb-1">
-                            {variant.name}
-                          </h3>
-                          <p className="text-primary text-xl font-bold">
-                            {formatPrice(variant.price)}
-                          </p>
-                        </div>
-
-                        {/* Checkbox */}
-                        <div
-                          className={`w-6 h-6 rounded border-2 flex items-center justify-center ${
-                            selected
-                              ? 'bg-primary border-primary'
-                              : 'border-gray-300'
-                          }`}
-                        >
-                          {selected && <Check className="w-4 h-4 text-white" />}
-                        </div>
-                      </div>
-                    </button>
-                  )
-                })}
-              </div>
-            </div>
-
-            {/* Selected Summary */}
-            {selectedVariants.length > 0 && (
-              <div className="mb-6 p-4 bg-gray-50 rounded-lg">
-                <h3 className="font-semibold text-gray-900 mb-2">
-                  Selected Items ({selectedVariants.length})
-                </h3>
-                <ul className="space-y-1 mb-3">
-                  {selectedVariants.map((variant, index) => (
-                    <li key={index} className="text-sm text-gray-600 flex justify-between">
-                      <span>{variant.name}</span>
-                      <span className="font-medium">{formatPrice(variant.price)}</span>
-                    </li>
-                  ))}
-                </ul>
-                <div className="border-t border-gray-200 pt-2 flex justify-between items-center">
-                  <span className="font-semibold text-gray-900">Total:</span>
-                  <span className="text-2xl font-bold text-primary">
-                    {formatPrice(getTotalPrice())}
-                  </span>
-                </div>
-              </div>
-            )}
-
-            {/* Add to Cart Button */}
-            <button
-              onClick={handleAddToCart}
-              disabled={selectedVariants.length === 0}
-              className="w-full bg-primary text-white py-4 rounded-lg font-semibold text-lg hover:bg-primary/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
-            >
-              <ShoppingCart className="w-5 h-5" />
-              Add {selectedVariants.length > 0 && `${selectedVariants.length} Item${selectedVariants.length > 1 ? 's' : ''}`} to Cart
-            </button>
-
-            {/* Help Text */}
-            <p className="text-sm text-gray-500 text-center mt-4">
-              Select one or more packaging types to add to your cart
-            </p>
+            <ProductPurchaseSection product={product} />
           </div>
         </div>
+
+        {/* Product Features Section */}
+        <div className="border-t border-gray-200 py-16">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="text-center">
+              <div className="w-16 h-16 mx-auto mb-4 bg-primary/10 rounded-full flex items-center justify-center">
+                <svg className="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                </svg>
+              </div>
+              <h2 className="text-lg font-semibold text-gray-900 mb-2">Premium Quality</h2>
+              <p className="text-gray-600">Made from the finest ingredients</p>
+            </div>
+            <div className="text-center">
+              <div className="w-16 h-16 mx-auto mb-4 bg-primary/10 rounded-full flex items-center justify-center">
+                <svg className="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
+                </svg>
+              </div>
+              <h3 className="text-lg font-semibold text-gray-900 mb-2">Multiple Sizes</h3>
+              <p className="text-gray-600">Available in various packaging options</p>
+            </div>
+            <div className="text-center">
+              <div className="w-16 h-16 mx-auto mb-4 bg-primary/10 rounded-full flex items-center justify-center">
+                <svg className="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
+              <h3 className="text-lg font-semibold text-gray-900 mb-2">Fast Delivery</h3>
+              <p className="text-gray-600">Quick and reliable shipping</p>
+            </div>
+          </div>
+        </div>
+
+        {/* Related Products Section */}
+        {relatedProducts.length > 0 && (
+          <div className="border-t border-gray-200 pt-16">
+            <h2 className="text-3xl font-bold text-gray-900 mb-8">You May Also Like</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {relatedProducts.map((p) => (
+                <ProductCard key={p.id} product={p} />
+              ))}
+            </div>
+          </div>
+        )}
       </div>
     </div>
   )

@@ -111,6 +111,12 @@ body {
     letter-spacing: -0.5px;
 }
 
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-bebas-neue), sans-serif;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+}
+
 :root {
     --radius: 0.625rem;
     --background: oklch(1 0 0);
@@ -192,70 +198,80 @@ body {
 }
 
 /* Swiper Slider Customization */
-.hero-swiper {
+.hero-swiper-main {
   width: 100%;
   height: 100%;
 }
 
-.hero-swiper .swiper-pagination {
-  bottom: 20px;
+/* Premium Navigation Buttons - Styled via Tailwind in component */
+.hero-swiper-button-prev,
+.hero-swiper-button-next {
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
 }
 
-.hero-swiper .swiper-pagination-bullet {
+/* Prevent any default button behavior */
+.hero-swiper-button-prev:focus,
+.hero-swiper-button-next:focus {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+/* Premium Pagination Below Slider */
+.hero-swiper-pagination {
+  position: relative !important;
+  bottom: auto !important;
+}
+
+.hero-swiper-pagination .swiper-pagination-bullet {
   width: 12px;
   height: 12px;
-  background: rgba(255, 255, 255, 0.5);
+  background: #e5e7eb;
   opacity: 1;
-  transition: all 0.3s ease;
-}
-
-.hero-swiper .swiper-pagination-bullet-active {
-  background: var(--primary);
-  width: 30px;
-  border-radius: 6px;
-}
-
-.hero-swiper .swiper-button-next,
-.hero-swiper .swiper-button-prev {
-  color: white;
-  background: rgba(0, 0, 0, 0.3);
-  width: 50px;
-  height: 50px;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  margin: 0 6px !important;
   border-radius: 50%;
-  transition: all 0.3s ease;
+  border: 2px solid #f3f4f6;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
 }
 
-.hero-swiper .swiper-button-next:hover,
-.hero-swiper .swiper-button-prev:hover {
-  background: var(--primary);
+.hero-swiper-pagination .swiper-pagination-bullet:hover {
+  background: #d1d5db;
   transform: scale(1.1);
 }
 
-.hero-swiper .swiper-button-next::after,
-.hero-swiper .swiper-button-prev::after {
-  font-size: 20px;
-  font-weight: bold;
+.hero-swiper-pagination .swiper-pagination-bullet-active {
+  background: var(--primary);
+  width: 40px;
+  border-radius: 6px;
+  border-color: var(--primary);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15), 0 0 0 3px rgba(76, 175, 80, 0.1);
+  transform: scale(1);
 }
 
 /* Mobile responsive adjustments */
 @media (max-width: 768px) {
-  .hero-swiper .swiper-button-next,
-  .hero-swiper .swiper-button-prev {
-    width: 40px;
-    height: 40px;
+  .hero-swiper-button-prev,
+  .hero-swiper-button-next {
+    width: 40px !important;
+    height: 40px !important;
   }
 
-  .hero-swiper .swiper-button-next::after,
-  .hero-swiper .swiper-button-prev::after {
-    font-size: 16px;
-  }
-
-  .hero-swiper .swiper-pagination-bullet {
-    width: 8px;
-    height: 8px;
-  }
-
-  .hero-swiper .swiper-pagination-bullet-active {
+  .hero-swiper-button-prev svg,
+  .hero-swiper-button-next svg {
     width: 20px;
+    height: 20px;
+  }
+
+  .hero-swiper-pagination .swiper-pagination-bullet {
+    width: 10px;
+    height: 10px;
+    margin: 0 4px !important;
+  }
+
+  .hero-swiper-pagination .swiper-pagination-bullet-active {
+    width: 32px;
   }
 }

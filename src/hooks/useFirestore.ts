@@ -110,7 +110,7 @@ export function useFirestoreQuery<T>(
   filters: Array<{
     field: string
     operator: WhereFilterOp
-    value: any
+    value: unknown
   }>,
   orderByField?: string,
   orderDirection: 'asc' | 'desc' = 'asc',
