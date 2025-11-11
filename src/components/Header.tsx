@@ -34,21 +34,26 @@ export default function Header() {
   return (
     <header className="sticky top-0 z-30 w-full bg-white border-b border-gray-200 shadow-sm h-[10vh]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full">
-        <div className="flex items-center justify-between h-full">
-          {/* Logo */}
-          <Link href="/" className="flex-shrink-0">
-            <Image
-              src="/images/logo.png"
-              alt="Sreerajaganapathy Oil Mill"
-              width={200}
-              height={60}
-              className="h-18 w-auto"
-              priority
-            />
-          </Link>
+        <div className="flex md:grid md:grid-cols-3 items-center justify-between md:justify-normal h-full">
+          {/* Logo - Left */}
+          <div className="flex justify-start">
+            <Link href="/" className="flex-shrink-0 flex items-center gap-2 md:gap-3">
+              <Image
+                src="/images/logo_image.webp"
+                alt="Sreerajaganapathy Oil Mill"
+                width={50}
+                height={50}
+                className="h-10 w-10 md:h-12 md:w-12 object-contain"
+                priority
+              />
+              <span className="text-black font-bold text-xs sm:text-sm md:text-lg lg:text-xl tracking-tight">
+                SREERAJAGANAPATHYOILMILL
+              </span>
+            </Link>
+          </div>
 
-          {/* Desktop Navigation Menu */}
-          <nav className="hidden md:flex space-x-2">
+          {/* Desktop Navigation Menu - Center */}
+          <nav className="hidden md:flex justify-center space-x-2">
             {menuItems.map((item) => (
               <Link
                 key={item.name}
@@ -65,7 +70,7 @@ export default function Header() {
           </nav>
 
           {/* Right Side - Cart Button (Desktop) */}
-          <div className="hidden md:flex items-center">
+          <div className="hidden md:flex items-center justify-end">
             <button
               onClick={openCart}
               className="p-2 text-black hover:text-primary relative rounded-full transition-all duration-200"

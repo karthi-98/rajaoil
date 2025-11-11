@@ -15,12 +15,12 @@ export default async function ProductsPage() {
   return (
     <div className="min-h-screen bg-white">
       {/* Combined Section - 90vh */}
-      <section className="h-[90vh] bg-gradient-to-br from-primary/10 via-emerald-50/50 to-green-50/30 flex flex-col">
+      <section className="h-[90vh] flex flex-col">
         {/* Hero Header */}
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 pb-8 w-full">
+        <div className="mx-auto bg-gradient-to-b from-red-50 to-white px-4 sm:px-6 lg:px-8 pt-10 pb-8 w-full">
           <div className="text-center space-y-3">
             <div className="inline-block">
-              <span className="bg-gradient-to-r from-primary to-emerald-600 text-white text-xs font-semibold px-3 py-1.5 rounded-full">
+              <span className="bg-primary text-white text-xs font-semibold px-3 py-1.5 rounded-full">
                 Premium Quality
               </span>
             </div>
@@ -77,7 +77,7 @@ export default async function ProductsPage() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="text-center">
-              <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-primary to-emerald-600 rounded-full flex items-center justify-center shadow-lg">
+              <div className="w-16 h-16 mx-auto mb-4 bg-primary rounded-full flex items-center justify-center shadow-lg">
                 <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                 </svg>
@@ -89,7 +89,7 @@ export default async function ProductsPage() {
             </div>
 
             <div className="text-center">
-              <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-primary to-emerald-600 rounded-full flex items-center justify-center shadow-lg">
+              <div className="w-16 h-16 mx-auto mb-4 bg-primary rounded-full flex items-center justify-center shadow-lg">
                 <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
@@ -101,7 +101,7 @@ export default async function ProductsPage() {
             </div>
 
             <div className="text-center">
-              <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-primary to-emerald-600 rounded-full flex items-center justify-center shadow-lg">
+              <div className="w-16 h-16 mx-auto mb-4 bg-primary rounded-full flex items-center justify-center shadow-lg">
                 <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>

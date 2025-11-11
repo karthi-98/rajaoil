@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     title: 'About Us - Sreerajaganapathy Oil Mill',
     description: 'Learn about Sreerajaganapathy Oil Mill, a trusted name in premium cooking oils.',
     type: 'website',
-    images: [{ url: '/images/logo.png', width: 1200, height: 630 }],
+    images: [{ url: '/images/logo_image.webp', width: 1200, height: 630 }],
   },
   alternates: {
     canonical: 'https://rajaoil.com/about',
@@ -48,7 +48,7 @@ export default function AboutPage() {
     name: 'Sreerajaganapathy Oil Mill',
     alternateName: 'Raja Oil',
     url: 'https://rajaoil.com',
-    logo: 'https://rajaoil.com/images/logo.png',
+    logo: 'https://rajaoil.com/images/logo_image.webp',
     description: 'Premium cooking oil manufacturer committed to quality, purity, and tradition.',
     foundingDate: '1990',
     address: {
@@ -66,13 +66,13 @@ export default function AboutPage() {
 
       <div className="min-h-screen bg-white">
         {/* Hero Section */}
-        <section className="relative bg-gradient-to-r from-primary/10 to-primary/5 py-16 md:py-24">
+        <section className="relative bg-gradient-to-b from-red-50 to-white py-16">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center">
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6">
+              <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
                 About Us
               </h1>
-              <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">
+              <p className="text-lg text-gray-600 max-w-3xl mx-auto">
                 A legacy of quality and tradition in producing the finest cooking oils for your family
               </p>
             </div>
@@ -80,7 +80,7 @@ export default function AboutPage() {
         </section>
 
         {/* Story Section */}
-        <section className="py-16 md:py-20">
+        <section className="pb-16 ">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid md:grid-cols-2 gap-12 items-center">
               <div>
@@ -106,7 +106,7 @@ export default function AboutPage() {
               </div>
               <div className="relative h-[400px] md:h-[500px] rounded-lg overflow-hidden">
                 <Image
-                  src="/images/logo.png"
+                  src="/images/logo_image.webp"
                   alt="Sreerajaganapathy Oil Mill"
                   fill
                   className="object-contain p-8"
@@ -184,7 +184,7 @@ export default function AboutPage() {
         </section>
 
         {/* CTA Section */}
-        <section className="py-16 bg-gradient-to-r from-primary to-primary/90">
+        <section className="py-16 bg-primary">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
               Experience the Difference

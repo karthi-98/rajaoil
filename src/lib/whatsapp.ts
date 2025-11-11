@@ -1,6 +1,6 @@
 import type { CartItem } from './types'
 
-const WHATSAPP_NUMBER = '919698035903' // India country code + number
+const WHATSAPP_NUMBER = '918678981221' // India country code + number
 
 export interface OrderDetails {
   items: CartItem[]
@@ -15,9 +15,10 @@ export interface OrderDetails {
  * Format price to currency string
  */
 export function formatPrice(price: number): string {
-  return new Intl.NumberFormat('en-US', {
+  return new Intl.NumberFormat('en-IN', {
     style: 'currency',
-    currency: 'USD',
+    currency: 'INR',
+    maximumFractionDigits: 0,
   }).format(price)
 }
 

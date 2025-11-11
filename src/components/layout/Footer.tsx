@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import Image from 'next/image'
-import { Facebook, Instagram, Twitter, Mail, Phone, MapPin } from 'lucide-react'
+import { Facebook, Instagram, Twitter, Phone, MapPin } from 'lucide-react'
 
 export default function Footer() {
   const currentYear = new Date().getFullYear()
@@ -12,14 +12,17 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
           {/* Company Info */}
           <div className="space-y-4">
-            <div className="mb-4">
+            <div className="mb-4 flex items-center gap-3">
               <Image
-                src="/images/logo.png"
+                src="/images/logo_image.webp"
                 alt="Sreerajaganapathy Oil Mill"
-                width={180}
+                width={50}
                 height={50}
-                className="h-14 w-auto brightness-0 invert"
+                className="h-12 w-12"
               />
+              <span className="text-white font-bold text-lg">
+                SREERAJAGANAPATHYOILMILL
+              </span>
             </div>
             <p className="text-sm leading-relaxed">
               Premium quality cooking oils crafted with care. Your trusted source for pure and authentic oil products since our establishment.
@@ -127,21 +130,15 @@ export default function Footer() {
               <li className="flex items-start space-x-3">
                 <MapPin className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
                 <span className="text-sm">
-                  123 Oil Mill Street<br />
-                  Chennai, Tamil Nadu<br />
-                  India - 600001
+                  96N TC main road west<br />
+                  Srg valasu road<br />
+                  Vellakoil - 638111
                 </span>
               </li>
               <li className="flex items-center space-x-3">
                 <Phone className="w-5 h-5 text-primary flex-shrink-0" />
                 <a href="tel:+919876543210" className="text-sm hover:text-primary transition-colors">
                   +91 98765 43210
-                </a>
-              </li>
-              <li className="flex items-center space-x-3">
-                <Mail className="w-5 h-5 text-primary flex-shrink-0" />
-                <a href="mailto:info@rajaoil.com" className="text-sm hover:text-primary transition-colors">
-                  info@rajaoil.com
                 </a>
               </li>
             </ul>

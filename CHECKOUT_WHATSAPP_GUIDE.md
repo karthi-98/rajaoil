@@ -10,7 +10,7 @@ This e-commerce site uses WhatsApp as the checkout/ordering system. When custome
 The WhatsApp number is configured in `src/lib/whatsapp.ts`:
 
 ```typescript
-const WHATSAPP_NUMBER = '919698035903' // India country code + number
+const WHATSAPP_NUMBER = '918678981221' // India country code + number
 ```
 
 **Format**: Country code (91 for India) + phone number (without spaces or special characters)
@@ -93,8 +93,8 @@ src/
 
 **4. `generateWhatsAppURL(orderDetails)`**
 - Creates appropriate WhatsApp URL based on device
-- Mobile: `https://wa.me/919698035903?text=...`
-- Desktop: `https://web.whatsapp.com/send?phone=919698035903&text=...`
+- Mobile: `https://wa.me/918678981221?text=...`
+- Desktop: `https://web.whatsapp.com/send?phone=918678981221&text=...`
 
 **5. `sendOrderToWhatsApp(orderDetails)`**
 - Main function to open WhatsApp with order
@@ -135,7 +135,7 @@ src/
 ### 1. Change WhatsApp Number
 Edit `src/lib/whatsapp.ts`:
 ```typescript
-const WHATSAPP_NUMBER = '919698035903' // Your number here
+const WHATSAPP_NUMBER = '918678981221' // Your number here
 ```
 
 ### 2. Modify Message Format
@@ -193,12 +193,12 @@ export function formatPrice(price: number, currency = 'USD'): string {
 
 ### Mobile (Android/iOS):
 - Opens WhatsApp mobile app
-- URL: `https://wa.me/919698035903?text=...`
+- URL: `https://wa.me/918678981221?text=...`
 - Better user experience on mobile devices
 
 ### Desktop (Windows/Mac):
 - Opens WhatsApp Web
-- URL: `https://web.whatsapp.com/send?phone=919698035903&text=...`
+- URL: `https://web.whatsapp.com/send?phone=918678981221&text=...`
 - Requires WhatsApp Web to be logged in
 
 ## Security & Privacy
@@ -323,5 +323,5 @@ sendOrderToWhatsApp({
 ---
 
 **Last Updated**: 2025-11-07
-**WhatsApp Number**: +91 9698035903
+**WhatsApp Number**: +91 8678981221
 **Version**: 1.0

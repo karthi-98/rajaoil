@@ -34,6 +34,11 @@ export const metadata: Metadata = {
   },
   description: "Premium quality cooking oils including coconut oil, groundnut oil, and gingelly oil. Traditional methods, pure and natural. Trusted by families for generations.",
   keywords: ["cooking oil", "coconut oil", "groundnut oil", "gingelly oil", "sesame oil", "premium oil", "natural oil"],
+  icons: {
+    icon: '/favicon.ico',
+    shortcut: '/favicon.ico',
+    apple: '/icon.png',
+  },
 };
 
 export default function RootLayout({

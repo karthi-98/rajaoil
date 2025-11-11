@@ -2,11 +2,17 @@
 
 import { useState, FormEvent } from 'react'
 import { Send } from 'lucide-react'
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select'
 
 export default function ContactForm() {
   const [formData, setFormData] = useState({
     name: '',
-    email: '',
     phone: '',
     subject: '',
     message: '',
@@ -17,9 +23,13 @@ export default function ContactForm() {
     message: string
   }>({ type: null, message: '' })
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target
     setFormData((prev) => ({ ...prev, [name]: value }))
+  }
+
+  const handleSubjectChange = (value: string) => {
+    setFormData((prev) => ({ ...prev, subject: value }))
   }
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
@@ -36,7 +46,7 @@ export default function ContactForm() {
         type: 'success',
         message: 'Thank you for your message! We will get back to you soon.',
       })
-      setFormData({ name: '', email: '', phone: '', subject: '', message: '' })
+      setFormData({ name: '', phone: '', subject: '', message: '' })
     } catch {
       setSubmitStatus({
         type: 'error',
@@ -66,23 +76,6 @@ export default function ContactForm() {
         />
       </div>
 
-      {/* Email */}
-      <div>
-        <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
-          Email Address <span className="text-red-500">*</span>
-        </label>
-        <input
-          type="email"
-          id="email"
-          name="email"
-          value={formData.email}
-          onChange={handleChange}
-          required
-          className="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all"
-          placeholder="your.email@example.com"
-        />
-      </div>
-
       {/* Phone */}
       <div>
         <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-2">
@@ -104,22 +97,19 @@ export default function ContactForm() {
         <label htmlFor="subject" className="block text-sm font-medium text-gray-700 mb-2">
           Subject <span className="text-red-500">*</span>
         </label>
-        <select
-          id="subject"
-          name="subject"
-          value={formData.subject}
-          onChange={handleChange}
-          required
-          className="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all bg-white"
-        >
-          <option value="">Select a subject</option>
-          <option value="general">General Inquiry</option>
-          <option value="product">Product Information</option>
-          <option value="order">Order & Delivery</option>
-          <option value="wholesale">Wholesale/Bulk Orders</option>
-          <option value="feedback">Feedback & Suggestions</option>
-          <option value="support">Customer Support</option>
-        </select>
+        <Select value={formData.subject} onValueChange={handleSubjectChange} required>
+          <SelectTrigger className="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all bg-white">
+            <SelectValue placeholder="Select a subject" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="general">General Inquiry</SelectItem>
+            <SelectItem value="product">Product Information</SelectItem>
+            <SelectItem value="order">Order & Delivery</SelectItem>
+            <SelectItem value="wholesale">Wholesale/Bulk Orders</SelectItem>
+            <SelectItem value="feedback">Feedback & Suggestions</SelectItem>
+            <SelectItem value="support">Customer Support</SelectItem>
+          </SelectContent>
+        </Select>
       </div>
 
       {/* Message */}

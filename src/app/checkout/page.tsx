@@ -128,7 +128,8 @@ export default function CheckoutPage() {
 
                     {/* Product Info */}
                     <div className="flex-1 min-w-0">
-                      <h3 className="font-medium text-gray-900 truncate">{item.name}</h3>
+                      <h3 className="font-medium text-gray-900 truncate">{item.brand}</h3>
+                      <p className="text-sm text-gray-600">{item.name}</p>
                       <p className="text-primary font-semibold text-sm mt-1">
                         {formatPrice(item.price)}
                       </p>

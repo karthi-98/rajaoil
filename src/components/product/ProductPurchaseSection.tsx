@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { ShoppingCart, Check, Minus, Plus, X } from 'lucide-react'
+import { ShoppingCart, Check, Minus, Plus } from 'lucide-react'
 import { useCartContext } from '@/contexts/CartContext'
 import Link from 'next/link'
 import { toast } from 'sonner'
@@ -47,16 +47,16 @@ export function ProductPurchaseSection({ product }: ProductPurchaseSectionProps)
   }
 
   const updateVariantQuantity = (variantName: string, newQuantity: number) => {
-    if (newQuantity < 1) return
+    if (newQuantity < 1) {
+      // Unselect the variant when quantity goes below 1
+      setSelectedVariants((prev) => prev.filter((v) => v.name !== variantName))
+      return
+    }
     setSelectedVariants((prev) =>
       prev.map((v) =>
         v.name === variantName ? { ...v, quantity: newQuantity } : v
       )
     )
-  }
-
-  const removeVariant = (variantName: string) => {
-    setSelectedVariants((prev) => prev.filter((v) => v.name !== variantName))
   }
 
   const handleAddToCart = async () => {
@@ -156,48 +156,33 @@ export function ProductPurchaseSection({ product }: ProductPurchaseSectionProps)
                   </p>
                 </button>
 
-                {/* Inline Quantity Controls - Show when selected */}
+                {/* Horizontal Quantity Controls - Show at bottom when selected */}
                 {isSelected && selectedVariant && (
                   <div className="mt-3 pt-3 border-t border-gray-300">
-                    <div className="flex items-center justify-between">
-                      <span className="text-xs text-gray-600 font-medium">Quantity:</span>
-                      <div className="flex items-center gap-2">
-                        <div className="flex items-center border border-gray-300 rounded-md">
-                          <button
-                            onClick={(e) => {
-                              e.stopPropagation()
-                              updateVariantQuantity(variant.name, selectedVariant.quantity - 1)
-                            }}
-                            className="p-1.5 hover:bg-gray-100 transition-colors"
-                            aria-label="Decrease quantity"
-                          >
-                            <Minus className="w-3 h-3" />
-                          </button>
-                          <span className="px-2 py-1 text-sm font-medium min-w-[30px] text-center">
-                            {selectedVariant.quantity}
-                          </span>
-                          <button
-                            onClick={(e) => {
-                              e.stopPropagation()
-                              updateVariantQuantity(variant.name, selectedVariant.quantity + 1)
-                            }}
-                            className="p-1.5 hover:bg-gray-100 transition-colors"
-                            aria-label="Increase quantity"
-                          >
-                            <Plus className="w-3 h-3" />
-                          </button>
-                        </div>
-                        <button
-                          onClick={(e) => {
-                            e.stopPropagation()
-                            removeVariant(variant.name)
-                          }}
-                          className="p-1.5 hover:bg-red-50 rounded-md transition-colors"
-                          aria-label="Remove item"
-                        >
-                          <X className="w-3.5 h-3.5 text-red-500" />
-                        </button>
+                    <div className="flex items-center justify-center gap-2">
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation()
+                          updateVariantQuantity(variant.name, selectedVariant.quantity - 1)
+                        }}
+                        className="p-2 hover:bg-gray-200 rounded-md transition-colors border border-gray-300"
+                        aria-label="Decrease quantity"
+                      >
+                        <Minus className="w-4 h-4" />
+                      </button>
+                      <div className="px-4 py-2 text-base font-semibold min-w-[50px] text-center">
+                        {selectedVariant.quantity}
                       </div>
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation()
+                          updateVariantQuantity(variant.name, selectedVariant.quantity + 1)
+                        }}
+                        className="p-2 hover:bg-gray-200 rounded-md transition-colors border border-gray-300"
+                        aria-label="Increase quantity"
+                      >
+                        <Plus className="w-4 h-4" />
+                      </button>
                     </div>
                   </div>
                 )}

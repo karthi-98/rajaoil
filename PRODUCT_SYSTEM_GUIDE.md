@@ -554,7 +554,7 @@ try {
 **Issue**: WhatsApp doesn't open
 
 **Solutions**:
-1. Check phone number format (919698035903)
+1. Check phone number format (918678981221)
 2. Verify WhatsApp is installed (mobile)
 3. Check browser popup blocker
 4. Test on mobile vs desktop

@@ -30,7 +30,7 @@ const oilProducts = [
 
 export default function ProductShowcase() {
   return (
-    <section className="py-16 md:py-20 bg-gradient-to-br from-primary via-primary/95 to-primary/90">
+    <section className="py-16 md:py-20 bg-primary">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="text-center mb-16">

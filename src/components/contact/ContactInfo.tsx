@@ -1,22 +1,16 @@
-import { MapPin, Phone, Mail, Clock } from 'lucide-react'
+import { MapPin, Phone, Clock } from 'lucide-react'
 
 const contactDetails = [
   {
     icon: MapPin,
     title: 'Our Address',
-    details: ['Sreerajaganapathy Oil Mill', 'Your Street Address', 'City, State - PIN Code', 'India'],
+    details: ['Sreerajaganapathy Oil Mill', '96N TC main road west', 'Srg valasu road', 'Vellakoil - 638111'],
   },
   {
     icon: Phone,
     title: 'Phone Number',
     details: ['+91 XXXXXXXXXX', '+91 XXXXXXXXXX'],
     links: ['tel:+91XXXXXXXXXX', 'tel:+91XXXXXXXXXX'],
-  },
-  {
-    icon: Mail,
-    title: 'Email Address',
-    details: ['info@rajaoil.com', 'support@rajaoil.com'],
-    links: ['mailto:info@rajaoil.com', 'mailto:support@rajaoil.com'],
   },
   {
     icon: Clock,

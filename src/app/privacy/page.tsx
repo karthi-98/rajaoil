@@ -168,9 +168,9 @@ export default function PrivacyPolicy() {
             </p>
             <div className="bg-white p-6 rounded-lg border border-gray-200">
               <p className="text-gray-700 mb-2"><strong>Sreerajaganapathy Oil Mill</strong></p>
-              <p className="text-gray-700 mb-2">123 Oil Mill Street</p>
-              <p className="text-gray-700 mb-2">Chennai, Tamil Nadu, India - 600001</p>
-              <p className="text-gray-700 mb-2">Email: <a href="mailto:info@rajaoil.com" className="text-primary hover:underline">info@rajaoil.com</a></p>
+              <p className="text-gray-700 mb-2">96N TC main road west</p>
+              <p className="text-gray-700 mb-2">Srg valasu road</p>
+              <p className="text-gray-700 mb-2">Vellakoil - 638111</p>
               <p className="text-gray-700">Phone: <a href="tel:+919876543210" className="text-primary hover:underline">+91 98765 43210</a></p>
             </div>
           </section>

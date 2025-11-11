@@ -2,18 +2,21 @@ import Image from 'next/image'
 
 export default function LoadingScreen() {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-primary/5 via-white to-primary/10">
+    <div className="min-h-screen flex items-center justify-center bg-primary/5">
       <div className="text-center">
         {/* Logo with pulse animation */}
-        <div className="mb-8 animate-pulse">
+        <div className="mb-8 animate-pulse flex flex-col items-center gap-4">
           <Image
-            src="/images/logo.png"
+            src="/images/logo_image.webp"
             alt="Sreerajaganapathy Oil Mill"
-            width={250}
-            height={75}
+            width={80}
+            height={80}
             className="mx-auto"
             priority
           />
+          <span className="text-primary font-bold text-2xl tracking-tight">
+            SREERAJAGANAPATHYOILMILL
+          </span>
         </div>
 
         {/* Spinner */}

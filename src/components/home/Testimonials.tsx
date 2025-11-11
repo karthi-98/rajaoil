@@ -81,7 +81,7 @@ export default function Testimonials() {
   }
 
   return (
-    <section className="relative bg-gradient-to-br from-slate-50 via-blue-50/30 to-green-50/40 py-16 overflow-hidden">
+    <section className="relative bg-gray-50 py-16 overflow-hidden">
       {/* Decorative Elements */}
       <div className="absolute top-0 right-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl"></div>
       <div className="absolute bottom-0 left-0 w-96 h-96 bg-blue-500/5 rounded-full blur-3xl"></div>
@@ -90,11 +90,11 @@ export default function Testimonials() {
         {/* Section Header */}
         <div className="text-center mb-10 px-4 sm:px-6 lg:px-8">
           <div className="inline-block mb-3">
-            <span className="bg-gradient-to-r from-primary to-emerald-600 text-white text-xs font-semibold px-3 py-1.5 rounded-full">
+            <span className="bg-primary text-white text-xs font-semibold px-3 py-1.5 rounded-full">
               Customer Reviews
             </span>
           </div>
-          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 bg-clip-text text-transparent mb-3">
+          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-3">
             What Our Customers Say
           </h2>
           <p className="text-sm md:text-base text-gray-600 max-w-2xl mx-auto">
@@ -118,12 +118,12 @@ export default function Testimonials() {
                 key={`first-${testimonial.id}`}
                 className="group bg-white/80 backdrop-blur-sm rounded-2xl p-5 shadow-lg hover:shadow-2xl transition-all duration-300 relative border border-white/50 hover:-translate-y-1 flex-shrink-0 w-[350px]"
               >
-                {/* Gradient Border Effect */}
-                <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-primary/20 via-transparent to-blue-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
+                {/* Border Effect */}
+                <div className="absolute inset-0 rounded-2xl bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
 
                 {/* Quote Icon */}
                 <div className="absolute top-3 right-3">
-                  <div className="w-10 h-10 bg-gradient-to-br from-primary/10 to-blue-500/10 rounded-full flex items-center justify-center">
+                  <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center">
                     <Quote className="w-5 h-5 text-primary" />
                   </div>
                 </div>
@@ -159,12 +159,12 @@ export default function Testimonials() {
                 key={`second-${testimonial.id}`}
                 className="group bg-white/80 backdrop-blur-sm rounded-2xl p-5 shadow-lg hover:shadow-2xl transition-all duration-300 relative border border-white/50 hover:-translate-y-1 flex-shrink-0 w-[350px]"
               >
-                {/* Gradient Border Effect */}
-                <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-primary/20 via-transparent to-blue-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
+                {/* Border Effect */}
+                <div className="absolute inset-0 rounded-2xl bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
 
                 {/* Quote Icon */}
                 <div className="absolute top-3 right-3">
-                  <div className="w-10 h-10 bg-gradient-to-br from-primary/10 to-blue-500/10 rounded-full flex items-center justify-center">
+                  <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center">
                     <Quote className="w-5 h-5 text-primary" />
                   </div>
                 </div>
