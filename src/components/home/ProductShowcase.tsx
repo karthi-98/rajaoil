@@ -30,14 +30,14 @@ const oilProducts = [
 
 export default function ProductShowcase() {
   return (
-    <section className="py-16 md:py-20 bg-primary">
+    <section className="py-16 md:py-20 bg-red-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="text-center mb-16">
-          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-3">
+          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-black mb-3">
             Our Premium Oil Collection
           </h2>
-          <p className="text-sm md:text-base text-white/90 max-w-3xl mx-auto">
+          <p className="text-sm md:text-base text-black/90 max-w-3xl mx-auto">
             Discover the finest quality oils, carefully extracted using traditional methods to preserve natural goodness
           </p>
         </div>
@@ -68,31 +68,31 @@ export default function ProductShowcase() {
                   <div className={`md:col-span-5 ${isEven ? '' : 'md:col-start-1 md:row-start-1'}`}>
                     {/* Product Name with Background */}
                     <div className="inline-block mb-5">
-                      <h3 className="text-xl md:text-2xl font-bold bg-white text-primary px-5 py-2.5 rounded-xl shadow-lg">
+                      <h3 className="text-xl md:text-2xl font-bold bg-primary text-white px-5 py-2.5 rounded-xl shadow-lg">
                         {product.name}
                       </h3>
                     </div>
 
                     {/* Description */}
-                    <p className="text-white text-sm md:text-base mb-6 leading-relaxed border-l-4 border-white pl-4">
+                    <p className="text-black text-sm md:text-base mb-6 leading-relaxed border-l-4 border-black pl-4">
                       {product.description}
                     </p>
 
                     {/* Benefits Section with Background */}
                     <div className="bg-white/10 backdrop-blur-sm rounded-xl p-5 border border-white/20">
                       <div className="flex items-center gap-2 mb-3">
-                        <div className="bg-white rounded-full p-1.5">
-                          <Check className="h-4 w-4 text-primary" />
+                        <div className="bg-primary rounded-full p-1.5">
+                          <Check className="h-4 w-4 text-white" />
                         </div>
-                        <h4 className="text-base font-bold text-white uppercase tracking-wide">
+                        <h4 className="text-base font-bold text-black uppercase tracking-wide">
                           Key Benefits
                         </h4>
                       </div>
                       <ul className="space-y-2.5">
                         {product.benefits.map((benefit, idx) => (
-                          <li key={idx} className="flex items-start gap-3 text-white">
+                          <li key={idx} className="flex items-start gap-3 text-black">
                             <span className="flex-shrink-0 mt-1">
-                              <div className="w-1.5 h-1.5 bg-white rounded-full"></div>
+                              <div className="w-1.5 h-1.5 bg-primary rounded-full"></div>
                             </span>
                             <span className="text-sm leading-relaxed">{benefit}</span>
                           </li>

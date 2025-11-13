@@ -13,6 +13,7 @@ export const metadata: Metadata = {
   },
 }
 
+
 export default function TermsAndConditions() {
   return (
     <div className="min-h-screen bg-gray-50">

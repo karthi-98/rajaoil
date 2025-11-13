@@ -88,7 +88,7 @@ export default function ProductCard({ product, compact = false }: ProductCardPro
         </div>
 
         {/* View Details Button - Push to bottom */}
-        <button className={`w-full bg-gray-900 text-white rounded-lg font-semibold group-hover:bg-primary transition-colors mt-auto ${compact ? 'py-2.5 text-sm' : 'py-3 text-sm'}`}>
+        <button className={`w-full bg-[#101828] text-white rounded-lg font-semibold group-hover:bg-primary transition-colors mt-auto ${compact ? 'py-2.5 text-sm' : 'py-3 text-sm'}`}>
           View Details
         </button>
       </div>
