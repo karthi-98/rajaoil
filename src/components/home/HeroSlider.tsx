@@ -226,12 +226,12 @@ function SlideContent({ slide }: SlideContentProps) {
   console.log('🖼️ Rendering slide with URL:', slide.url)
 
   const slideContent = (
-    <div className="relative w-full h-[80vh] overflow-hidden">
+    <div className="relative w-full h-[70vh] md:h-[80vh] overflow-hidden">
       {/* Background Image */}
       <img
         src={slide.url}
         alt={slide.alt}
-        className="w-full h-full object-fill"
+        className="w-full h-full object-cover"
         onLoad={() => console.log('✅ Image loaded:', slide.url)}
         onError={(e) => console.error('❌ Image failed to load:', slide.url, e)}
       />

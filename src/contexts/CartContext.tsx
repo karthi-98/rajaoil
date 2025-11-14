@@ -11,6 +11,7 @@ interface AddItemParams {
   name: string
   price: number
   image: string
+  offer?: string
 }
 
 interface CartContextType {

@@ -46,7 +46,7 @@ export default function Header() {
                 className="h-10 w-10 md:h-12 md:w-12 object-contain"
                 priority
               />
-              <span className="text-black font-bold text-xs sm:text-sm md:text-lg lg:text-xl tracking-tight">
+              <span className="text-black font-bold text-[3.5vw] sm:text-sm md:text-lg lg:text-xl tracking-tight">
                 SREERAJAGANAPATHYOILMILL
               </span>
             </Link>

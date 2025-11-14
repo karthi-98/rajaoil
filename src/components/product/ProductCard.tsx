@@ -36,7 +36,7 @@ export default function ProductCard({ product, compact = false }: ProductCardPro
 
   return (
     <Link
-      href={`/products/${product.brand.replace(/ /g, '-')}`}
+      href={`/products/${product.id.replace(/ /g, '-')}`}
       className={`group flex flex-col bg-white rounded-lg border border-gray-200 overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-1 ${compact ? 'h-[380px]' : 'h-[420px]'}`}
     >
       {/* Product Image - Wider aspect ratio for horizontal images */}

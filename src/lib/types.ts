@@ -3,6 +3,7 @@ export interface ProductType {
   name: string
   price: string
   image: string
+  offer?: string
 }
 
 // Main product structure matching Firebase
@@ -24,4 +25,5 @@ export interface CartItem {
   price: number
   image: string
   quantity: number
+  offer?: string
 }

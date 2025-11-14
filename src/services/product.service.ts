@@ -1,4 +1,4 @@
-import { collection, getDocs, query, where } from 'firebase/firestore'
+import { collection, getDocs, query, where, doc, getDoc } from 'firebase/firestore'
 import { db } from '@/lib/firebase/config'
 import type { Product } from '@/lib/types'
 
@@ -32,33 +32,32 @@ export class ProductService {
   }
 
   /**
-   * Get a single product by ID
+   * Get a single product by ID (document ID)
    */
   static async getProductById(productId: string): Promise<Product | null> {
     try {
-      const productsRef = collection(db, COLLECTION_NAME)
-      const q = query(
-        productsRef,
-        where('docType', '==', 'product'),
-        where('brand', '==', productId)
-      )
-      const querySnapshot = await getDocs(q)
+      const productRef = doc(db, COLLECTION_NAME, productId)
+      const productDoc = await getDoc(productRef)
 
-      if (querySnapshot.empty) {
-        console.error('Product not found by brand:', productId)
+      if (!productDoc.exists()) {
+        console.error('Product not found with ID:', productId)
         return null
       }
 
-      // Assuming brand is unique, take the first result
-      const productDoc = querySnapshot.docs[0]
       const data = productDoc.data()
+
+      // Verify it's a product document
+      if (data.docType !== 'product') {
+        console.error('Document is not a product:', productId)
+        return null
+      }
 
       return {
         id: productDoc.id,
         ...data,
       } as Product
     } catch (error) {
-      console.error('❌ Error fetching product by brand:', error)
+      console.error('❌ Error fetching product by ID:', error)
       return null
     }
   }

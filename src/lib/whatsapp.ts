@@ -7,7 +7,11 @@ export interface OrderDetails {
   total: number
   customerName?: string
   customerPhone?: string
-  customerAddress?: string
+  doorNo?: string
+  address?: string
+  district?: string
+  state?: string
+  pincode?: string
   notes?: string
 }
 
@@ -26,44 +30,64 @@ export function formatPrice(price: number): string {
  * Generate WhatsApp message from order details
  */
 export function generateWhatsAppMessage(orderDetails: OrderDetails): string {
-  const { items, total, customerName, customerPhone, customerAddress, notes } = orderDetails
+  const { items, total, customerName, customerPhone, doorNo, address, district, state, pincode, notes } = orderDetails
 
-  let message = '🛒 *New Order from Raja Oil*\n\n'
+  let message = 'Hello! I would like to place an order from Raja Oil 🛒\n\n'
 
   // Customer details
+  message += '*My Details:*\n'
   if (customerName) {
-    message += `👤 *Customer:* ${customerName}\n`
+    message += `Name: ${customerName}\n`
   }
   if (customerPhone) {
-    message += `📱 *Phone:* ${customerPhone}\n`
-  }
-  if (customerAddress) {
-    message += `📍 *Address:* ${customerAddress}\n`
-  }
-  if (customerName || customerPhone || customerAddress) {
-    message += '\n'
+    message += `Phone: ${customerPhone}\n`
   }
 
+  // Delivery Address
+  const hasAddress = doorNo || address || district || state || pincode
+  if (hasAddress) {
+    message += '\n*Delivery Address:*\n'
+    if (doorNo) {
+      message += `Door No: ${doorNo}\n`
+    }
+    if (address) {
+      message += `Address: ${address}\n`
+    }
+    if (district) {
+      message += `District: ${district}\n`
+    }
+    if (state) {
+      message += `State: ${state}\n`
+    }
+    if (pincode) {
+      message += `Pincode: ${pincode}\n`
+    }
+  }
+  message += '\n'
+
   // Order items
-  message += '📦 *Order Items:*\n'
+  message += '*My Order:*\n'
   message += '─────────────────\n'
 
   items.forEach((item, index) => {
-    message += `${index + 1}. *${item.brand} - ${item.name}*\n`
-    message += `   Qty: ${item.quantity} × ${formatPrice(item.price)}\n`
+    message += `${index + 1}. *${item.productId} - ${item.name}*\n`
+    message += `   Quantity: ${item.quantity} × ${formatPrice(item.price)}\n`
+    if (item.offer) {
+      message += `   🎁 Offer: ${item.offer}\n`
+    }
     message += `   Subtotal: ${formatPrice(item.price * item.quantity)}\n\n`
   })
 
   // Total
   message += '─────────────────\n'
-  message += `💰 *Total Amount:* ${formatPrice(total)}\n`
+  message += `*Total Amount:* ${formatPrice(total)}\n`
 
   // Notes
   if (notes) {
-    message += `\n📝 *Notes:* ${notes}\n`
+    message += `\n*Additional Notes:* ${notes}\n`
   }
 
-  message += '\n_Thank you for your order!_ 🙏'
+  message += '\nPlease confirm my order. Thank you! 🙏'
 
   return message
 }

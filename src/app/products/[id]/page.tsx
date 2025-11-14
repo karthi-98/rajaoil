@@ -24,11 +24,11 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
   }
 
   return {
-    title: `${product.brand} - Premium Cooking Oil | Raja Oil`,
-    description: product.description || `Buy ${product.brand} online. Premium quality cooking oil with various packaging sizes available.`,
+    title: `${product.id} - Premium Cooking Oil | Raja Oil`,
+    description: product.description || `Buy ${product.id} online. Premium quality cooking oil with various packaging sizes available.`,
     openGraph: {
-      title: product.brand,
-      description: product.description || `Premium ${product.brand} cooking oil`,
+      title: product.id,
+      description: product.description || `Premium ${product.id} cooking oil`,
       images: [{ url: product.mainImage, width: 1200, height: 630 }],
     },
   }
@@ -56,7 +56,7 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
 
   const breadcrumbItems = [
     { label: 'Products', href: '/products' },
-    { label: product.brand, href: `/products/${params.id}` },
+    { label: product.id, href: `/products/${params.id}` },
   ]
 
   return (
@@ -69,13 +69,13 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 mb-16">
           {/* Left Side - Image Gallery */}
           <div>
-            <ProductImageSlider images={allImages} productName={product.brand} />
+            <ProductImageSlider images={allImages} productName={product.id} />
           </div>
 
           {/* Right Side - Product Info & Purchase */}
           <div>
             <h1 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
-              {product.brand}
+              {product.id}
             </h1>
 
             {product.description && (

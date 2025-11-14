@@ -77,6 +77,7 @@ export function ProductPurchaseSection({ product }: ProductPurchaseSectionProps)
             name: variant.name,
             price: parseFloat(variant.price),
             image: variant.image || product.mainImage,
+            offer: variant.offer,
           },
           variant.quantity
         )
@@ -154,6 +155,11 @@ export function ProductPurchaseSection({ product }: ProductPurchaseSectionProps)
                   <p className="text-sm text-gray-600 mt-1">
                     {formatPrice(variant.price)}
                   </p>
+                  {variant.offer && (
+                    <div className="mt-2 inline-block bg-green-100 text-green-800 text-xs font-semibold px-2 py-1 rounded">
+                      🎁 {variant.offer}
+                    </div>
+                  )}
                 </button>
 
                 {/* Horizontal Quantity Controls - Show at bottom when selected */}

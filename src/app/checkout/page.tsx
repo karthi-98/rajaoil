@@ -3,19 +3,35 @@
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { useCartContext } from '@/contexts/CartContext'
-import { sendOrderToWhatsApp, formatPrice } from '@/lib/whatsapp'
+import { formatPrice } from '@/lib/whatsapp'
 import { Trash2, ShoppingBag, ArrowLeft } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
+import { Modal } from '@/components/ui/Modal'
 
 export default function CheckoutPage() {
   const router = useRouter()
   const { items, total, removeItem, clearCart } = useCartContext()
   const [customerName, setCustomerName] = useState('')
   const [customerPhone, setCustomerPhone] = useState('')
-  const [customerAddress, setCustomerAddress] = useState('')
+  const [doorNo, setDoorNo] = useState('')
+  const [address, setAddress] = useState('')
+  const [district, setDistrict] = useState('')
+  const [state, setState] = useState('')
+  const [pincode, setPincode] = useState('')
   const [notes, setNotes] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)
+
+  // Modal state
+  const [showModal, setShowModal] = useState(false)
+  const [modalType, setModalType] = useState<'success' | 'error'>('success')
+  const [modalTitle, setModalTitle] = useState('')
+  const [modalMessage, setModalMessage] = useState('')
+  const [orderId, setOrderId] = useState('')
+
+  // Shipping cost
+  const SHIPPING_COST = 100
+  const finalTotal = total + SHIPPING_COST
 
   // Redirect to home if cart is empty
   useEffect(() => {
@@ -28,37 +44,94 @@ export default function CheckoutPage() {
     }
   }, [items.length, router, isSubmitting])
 
-  const handleCheckout = (e: React.FormEvent) => {
+  const handleCheckout = async (e: React.FormEvent) => {
     e.preventDefault()
 
     if (items.length === 0) {
-      alert('Your cart is empty!')
+      setModalType('error')
+      setModalTitle('Cart is Empty')
+      setModalMessage('Your cart is empty. Please add items before checkout.')
+      setShowModal(true)
       return
     }
 
     if (!customerName || !customerPhone) {
-      alert('Please fill in your name and phone number')
+      setModalType('error')
+      setModalTitle('Missing Information')
+      setModalMessage('Please fill in your name and phone number.')
+      setShowModal(true)
+      return
+    }
+
+    if (!doorNo || !address || !district || !state || !pincode) {
+      setModalType('error')
+      setModalTitle('Incomplete Address')
+      setModalMessage('Please fill in all delivery address fields.')
+      setShowModal(true)
       return
     }
 
     setIsSubmitting(true)
 
-    // Send order to WhatsApp
-    sendOrderToWhatsApp({
-      items,
-      total,
-      customerName,
-      customerPhone,
-      customerAddress,
-      notes,
-    })
+    try {
+      // Send order to backend API
+      const response = await fetch('/api/orders/create', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          items,
+          total: finalTotal,
+          subtotal: total,
+          shippingCost: SHIPPING_COST,
+          customerName,
+          customerPhone,
+          doorNo,
+          address,
+          district,
+          state,
+          pincode,
+          notes,
+        }),
+      })
 
-    // Clear cart after sending
-    setTimeout(() => {
-      clearCart()
+      const data = await response.json()
+
+      if (data.success) {
+        // Clear cart
+        clearCart()
+
+        // Show success modal
+        setModalType('success')
+        setModalTitle('Order Placed Successfully!')
+        setOrderId(data.orderId)
+        setModalMessage('One of our executives will call you shortly to confirm your order and discuss payment options.')
+        setShowModal(true)
+        setIsSubmitting(false)
+      } else {
+        setModalType('error')
+        setModalTitle('Order Failed')
+        setModalMessage(data.error || 'Failed to place order. Please try again.')
+        setShowModal(true)
+        setIsSubmitting(false)
+      }
+    } catch (error) {
+      console.error('Order submission error:', error)
+      setModalType('error')
+      setModalTitle('Something Went Wrong')
+      setModalMessage('Unable to process your order. Please try again or contact support.')
+      setShowModal(true)
       setIsSubmitting(false)
-      // WhatsApp will open in new tab, user can close this page or continue shopping
-    }, 1000)
+    }
+  }
+
+  const handleCloseModal = () => {
+    setShowModal(false)
+    if (modalType === 'success') {
+      // Redirect to home after closing success modal
+      router.push('/')
+    }
   }
 
   if (items.length === 0) {
@@ -128,7 +201,7 @@ export default function CheckoutPage() {
 
                     {/* Product Info */}
                     <div className="flex-1 min-w-0">
-                      <h3 className="font-medium text-gray-900 truncate">{item.brand}</h3>
+                      <h3 className="font-medium text-gray-900 truncate">{item.productId}</h3>
                       <p className="text-sm text-gray-600">{item.name}</p>
                       <p className="text-primary font-semibold text-sm mt-1">
                         {formatPrice(item.price)}
@@ -153,11 +226,24 @@ export default function CheckoutPage() {
                 ))}
               </div>
 
-              {/* Total */}
-              <div className="mt-6 pt-6 border-t border-gray-200">
-                <div className="flex items-center justify-between text-xl font-bold">
+              {/* Subtotal, Shipping & Total */}
+              <div className="mt-6 pt-6 border-t border-gray-200 space-y-3">
+                {/* Subtotal */}
+                <div className="flex items-center justify-between text-base">
+                  <span className="text-gray-600">Subtotal:</span>
+                  <span className="text-gray-900">{formatPrice(total)}</span>
+                </div>
+
+                {/* Shipping */}
+                <div className="flex items-center justify-between text-base">
+                  <span className="text-gray-600">Shipping:</span>
+                  <span className="text-gray-900">{formatPrice(SHIPPING_COST)}</span>
+                </div>
+
+                {/* Total */}
+                <div className="flex items-center justify-between text-xl font-bold pt-3 border-t border-gray-200">
                   <span className="text-gray-900">Total:</span>
-                  <span className="text-primary">{formatPrice(total)}</span>
+                  <span className="text-primary">{formatPrice(finalTotal)}</span>
                 </div>
               </div>
             </div>
@@ -201,19 +287,91 @@ export default function CheckoutPage() {
                   />
                 </div>
 
-                {/* Address */}
-                <div>
-                  <label htmlFor="address" className="block text-sm font-medium text-gray-700 mb-2">
-                    Delivery Address (Optional)
-                  </label>
-                  <textarea
-                    id="address"
-                    value={customerAddress}
-                    onChange={(e) => setCustomerAddress(e.target.value)}
-                    placeholder="Enter your delivery address"
-                    rows={3}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all resize-none"
-                  />
+                {/* Delivery Address Section */}
+                <div className="space-y-4 pt-4 border-t border-gray-200">
+                  <h3 className="text-sm font-semibold text-gray-900">Delivery Address <span className="text-red-500">*</span></h3>
+
+                  {/* Door No */}
+                  <div>
+                    <label htmlFor="doorNo" className="block text-sm font-medium text-gray-700 mb-2">
+                      Door/Flat No. <span className="text-red-500">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      id="doorNo"
+                      value={doorNo}
+                      onChange={(e) => setDoorNo(e.target.value)}
+                      placeholder="e.g., 123, Flat 4B"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all"
+                      required
+                    />
+                  </div>
+
+                  {/* Street Address */}
+                  <div>
+                    <label htmlFor="address" className="block text-sm font-medium text-gray-700 mb-2">
+                      Street Address <span className="text-red-500">*</span>
+                    </label>
+                    <textarea
+                      id="address"
+                      value={address}
+                      onChange={(e) => setAddress(e.target.value)}
+                      placeholder="Street name, area, landmark"
+                      rows={2}
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all resize-none"
+                      required
+                    />
+                  </div>
+
+                  {/* District and State */}
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <label htmlFor="district" className="block text-sm font-medium text-gray-700 mb-2">
+                        District <span className="text-red-500">*</span>
+                      </label>
+                      <input
+                        type="text"
+                        id="district"
+                        value={district}
+                        onChange={(e) => setDistrict(e.target.value)}
+                        placeholder="District"
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all"
+                        required
+                      />
+                    </div>
+                    <div>
+                      <label htmlFor="state" className="block text-sm font-medium text-gray-700 mb-2">
+                        State <span className="text-red-500">*</span>
+                      </label>
+                      <input
+                        type="text"
+                        id="state"
+                        value={state}
+                        onChange={(e) => setState(e.target.value)}
+                        placeholder="State"
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all"
+                        required
+                      />
+                    </div>
+                  </div>
+
+                  {/* Pincode */}
+                  <div>
+                    <label htmlFor="pincode" className="block text-sm font-medium text-gray-700 mb-2">
+                      Pincode <span className="text-red-500">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      id="pincode"
+                      value={pincode}
+                      onChange={(e) => setPincode(e.target.value)}
+                      placeholder="6-digit pincode"
+                      maxLength={6}
+                      pattern="[0-9]{6}"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all"
+                      required
+                    />
+                  </div>
                 </div>
 
                 {/* Notes */}
@@ -231,23 +389,23 @@ export default function CheckoutPage() {
                   />
                 </div>
 
-                {/* WhatsApp Info */}
-                <div className="bg-green-50 border border-green-200 rounded-lg p-4">
+                {/* Order Info */}
+                <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
                   <div className="flex items-start gap-3">
                     <svg
-                      className="w-6 h-6 text-green-600 flex-shrink-0 mt-0.5"
-                      fill="currentColor"
+                      className="w-6 h-6 text-blue-600 flex-shrink-0 mt-0.5"
+                      fill="none"
+                      stroke="currentColor"
                       viewBox="0 0 24 24"
                     >
-                      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" />
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
                     <div className="flex-1">
-                      <p className="text-sm font-medium text-green-900 mb-1">
-                        Order via WhatsApp
+                      <p className="text-sm font-medium text-blue-900 mb-1">
+                        Order Confirmation Process
                       </p>
-                      <p className="text-sm text-green-700">
-                        Your order will be sent to our WhatsApp number. We&apos;ll confirm your order
-                        and delivery details shortly.
+                      <p className="text-sm text-blue-700">
+                        After placing your order, one of our executives will call you to confirm your order and discuss payment options.
                       </p>
                     </div>
                   </div>
@@ -257,19 +415,19 @@ export default function CheckoutPage() {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full bg-green-600 hover:bg-green-700 text-white py-4 rounded-lg font-semibold text-lg transition-colors flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="w-full bg-primary hover:bg-primary/90 text-white py-4 rounded-lg font-semibold text-lg transition-colors flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {isSubmitting ? (
                     <>
                       <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                      Sending...
+                      Placing Order...
                     </>
                   ) : (
                     <>
-                      <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" />
+                      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                       </svg>
-                      Complete Order on WhatsApp
+                      Place Order
                     </>
                   )}
                 </button>
@@ -278,6 +436,42 @@ export default function CheckoutPage() {
           </div>
         </div>
       </div>
+
+      {/* Modal */}
+      <Modal
+        isOpen={showModal}
+        onClose={handleCloseModal}
+        title={modalTitle}
+        type={modalType}
+      >
+        <div className="space-y-4">
+          {modalType === 'success' && orderId && (
+            <div className="bg-gray-50 rounded-lg p-4 border border-gray-200">
+              <p className="text-sm text-gray-600 mb-1">Order ID</p>
+              <p className="text-lg font-bold text-gray-900">{orderId}</p>
+            </div>
+          )}
+
+          <p className="text-base leading-relaxed">{modalMessage}</p>
+
+          {modalType === 'success' && (
+            <p className="text-sm text-gray-500 mt-2">
+              Thank you for choosing Raja Oil!
+            </p>
+          )}
+
+          <button
+            onClick={handleCloseModal}
+            className={`w-full py-3 px-4 rounded-lg font-semibold text-white transition-colors mt-4 ${
+              modalType === 'success'
+                ? 'bg-green-600 hover:bg-green-700'
+                : 'bg-primary hover:bg-primary/90'
+            }`}
+          >
+            {modalType === 'success' ? 'Continue Shopping' : 'Close'}
+          </button>
+        </div>
+      </Modal>
     </div>
   )
 }

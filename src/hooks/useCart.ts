@@ -13,6 +13,7 @@ interface AddItemParams {
   name: string
   price: number
   image: string
+  offer?: string
 }
 
 export function useCart() {
