@@ -15,15 +15,16 @@ export default function Footer() {
             <div className="mb-4 flex items-center gap-3">
               <Image
                 src="/images/logo_image.webp"
-                alt="Sreerajaganapathy Oil Mill"
+                alt="sreeraajaganapathy Oil Mill"
                 width={50}
                 height={50}
                 className="h-12 w-12"
               />
-              <span className="text-white font-bold text-lg">
-                SREERAJAGANAPATHYOILMILL
+              <span className="text-white font-bold text-[14px]">
+                SREERAAJAGANAPATHYOILMILL
               </span>
             </div>
+            
             <p className="text-sm leading-relaxed">
               Premium quality cooking oils crafted with care. Your trusted source for pure and authentic oil products since our establishment.
             </p>
@@ -137,8 +138,8 @@ export default function Footer() {
               </li>
               <li className="flex items-center space-x-3">
                 <Phone className="w-5 h-5 text-primary flex-shrink-0" />
-                <a href="tel:+919876543210" className="text-sm hover:text-primary transition-colors">
-                  +91 98765 43210
+                <a href="tel:+918678981221" className="text-sm hover:text-primary transition-colors">
+                  +91 86789 81221
                 </a>
               </li>
             </ul>
@@ -151,7 +152,7 @@ export default function Footer() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="md:flex md:items-center md:justify-between">
             <div className="text-sm text-center md:text-left">
-              <p>&copy; {currentYear} Sreerajaganapathy Oil Mill. All rights reserved.</p>
+              <p>&copy; {currentYear} sreeraajaganapathy Oil Mill. All rights reserved.</p>
             </div>
             <div className="mt-4 md:mt-0 flex justify-center md:justify-end space-x-6">
               <Link href="/sitemap" className="text-sm hover:text-primary transition-colors">

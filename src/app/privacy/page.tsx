@@ -2,10 +2,10 @@ import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
   title: 'Privacy Policy',
-  description: 'Learn how Sreerajaganapathy Oil Mill collects, uses, and protects your personal information. Our commitment to your privacy and data security.',
+  description: 'Learn how sreeraajaganapathy Oil Mill collects, uses, and protects your personal information. Our commitment to your privacy and data security.',
   keywords: ['privacy policy', 'data protection', 'user privacy', 'information security'],
   openGraph: {
-    title: 'Privacy Policy | Sreerajaganapathy Oil Mill',
+    title: 'Privacy Policy | sreeraajaganapathy Oil Mill',
     description: 'Learn how we protect your personal information and respect your privacy.',
   },
   alternates: {
@@ -32,7 +32,7 @@ export default function PrivacyPolicy() {
           <section className="mb-8">
             <h2 className="text-2xl font-semibold text-gray-900 mb-4">Introduction</h2>
             <p className="text-gray-700 leading-relaxed mb-4">
-              At Sreerajaganapathy Oil Mill (&quot;we,&quot; &quot;our,&quot; or &quot;us&quot;), we are committed to protecting your privacy and ensuring the security of your personal information. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website or make a purchase from us.
+              At sreeraajaganapathy Oil Mill (&quot;we,&quot; &quot;our,&quot; or &quot;us&quot;), we are committed to protecting your privacy and ensuring the security of your personal information. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website or make a purchase from us.
             </p>
             <p className="text-gray-700 leading-relaxed">
               By using our website, you agree to the collection and use of information in accordance with this policy. If you do not agree with our policies and practices, please do not use our website.
@@ -167,11 +167,11 @@ export default function PrivacyPolicy() {
               If you have any questions, concerns, or requests regarding this Privacy Policy or our data practices, please contact us:
             </p>
             <div className="bg-white p-6 rounded-lg border border-gray-200">
-              <p className="text-gray-700 mb-2"><strong>Sreerajaganapathy Oil Mill</strong></p>
+              <p className="text-gray-700 mb-2"><strong>sreeraajaganapathy Oil Mill</strong></p>
               <p className="text-gray-700 mb-2">96N TC main road west</p>
               <p className="text-gray-700 mb-2">Srg valasu road</p>
               <p className="text-gray-700 mb-2">Vellakoil - 638111</p>
-              <p className="text-gray-700">Phone: <a href="tel:+919876543210" className="text-primary hover:underline">+91 98765 43210</a></p>
+              <p className="text-gray-700">Phone: <a href="tel:+918678981221" className="text-primary hover:underline">+91 86789 81221</a></p>
             </div>
           </section>
         </div>

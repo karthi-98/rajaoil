@@ -3,7 +3,7 @@ import { ProductService } from "@/services/product.service"
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {
-  title: "Our Products - Premium Cooking Oils | Sreerajaganapathy Oil Mill",
+  title: "Our Products - Premium Cooking Oils | sreeraajaganapathy Oil Mill",
   description: "Browse our wide range of premium quality cooking oils. Pure, authentic, and traditionally made oils for all your cooking needs.",
   keywords: ["cooking oil", "premium oil", "traditional oil", "cold-pressed oil"],
 }

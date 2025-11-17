@@ -1,11 +1,12 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { ShoppingCart, Check, Minus, Plus } from 'lucide-react'
 import { useCartContext } from '@/contexts/CartContext'
 import Link from 'next/link'
 import { toast } from 'sonner'
 import type { Product, ProductType } from '@/lib/types'
+import MobileCartSheet from '@/components/cart/MobileCartSheet'
 
 interface ProductPurchaseSectionProps {
   product: Product
@@ -16,9 +17,22 @@ interface SelectedVariant extends ProductType {
 }
 
 export function ProductPurchaseSection({ product }: ProductPurchaseSectionProps) {
-  const { addItem } = useCartContext()
+  const { addItem, openCart } = useCartContext()
   const [selectedVariants, setSelectedVariants] = useState<SelectedVariant[]>([])
   const [isAdding, setIsAdding] = useState(false)
+  const [isMobileCartOpen, setIsMobileCartOpen] = useState(false)
+  const [isMobile, setIsMobile] = useState(false)
+
+  // Check if device is mobile
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768) // md breakpoint in Tailwind
+    }
+
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
 
   const formatPrice = (price: string | number) => {
     const numPrice = typeof price === 'string' ? parseFloat(price) : price
@@ -85,6 +99,15 @@ export function ProductPurchaseSection({ product }: ProductPurchaseSectionProps)
 
       // Show success toast
       toast.success(`${totalItems} item${totalItems > 1 ? 's' : ''} added to cart successfully!`)
+
+      // Open appropriate cart view based on device
+      if (isMobile) {
+        // On mobile, open the bottom sheet
+        setIsMobileCartOpen(true)
+      } else {
+        // On desktop, open the sidebar
+        openCart()
+      }
 
       // Keep success state visible and don't reset
       // User can either navigate to cart or continue shopping
@@ -279,6 +302,12 @@ export function ProductPurchaseSection({ product }: ProductPurchaseSectionProps)
           </div>
         </details>
       </div>
+
+      {/* Mobile Cart Sheet */}
+      <MobileCartSheet
+        isOpen={isMobileCartOpen}
+        onClose={() => setIsMobileCartOpen(false)}
+      />
     </div>
   )
 }

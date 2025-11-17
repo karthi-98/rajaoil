@@ -2,10 +2,10 @@ import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
   title: 'Terms & Conditions',
-  description: 'Read the terms and conditions for using Sreerajaganapathy Oil Mill website and purchasing our products. Understand your rights and responsibilities.',
+  description: 'Read the terms and conditions for using sreeraajaganapathy Oil Mill website and purchasing our products. Understand your rights and responsibilities.',
   keywords: ['terms and conditions', 'terms of service', 'user agreement', 'legal terms'],
   openGraph: {
-    title: 'Terms & Conditions | Sreerajaganapathy Oil Mill',
+    title: 'Terms & Conditions | sreeraajaganapathy Oil Mill',
     description: 'Terms and conditions for using our website and services.',
   },
   alternates: {
@@ -33,7 +33,7 @@ export default function TermsAndConditions() {
           <section className="mb-8">
             <h2 className="text-2xl font-semibold text-gray-900 mb-4">1. Introduction</h2>
             <p className="text-gray-700 leading-relaxed mb-4">
-              Welcome to Sreerajaganapathy Oil Mill. These Terms and Conditions (&quot;Terms&quot;) govern your use of our website and the purchase of products from us. By accessing or using our website, you agree to be bound by these Terms.
+              Welcome to sreeraajaganapathy Oil Mill. These Terms and Conditions (&quot;Terms&quot;) govern your use of our website and the purchase of products from us. By accessing or using our website, you agree to be bound by these Terms.
             </p>
             <p className="text-gray-700 leading-relaxed">
               Please read these Terms carefully before using our website. If you do not agree with any part of these Terms, you must not use our website or services.
@@ -43,7 +43,7 @@ export default function TermsAndConditions() {
           <section className="mb-8">
             <h2 className="text-2xl font-semibold text-gray-900 mb-4">2. Definitions</h2>
             <ul className="list-disc pl-6 mb-4 space-y-2 text-gray-700">
-              <li><strong>&quot;We,&quot; &quot;us,&quot; &quot;our&quot;</strong> refers to Sreerajaganapathy Oil Mill</li>
+              <li><strong>&quot;We,&quot; &quot;us,&quot; &quot;our&quot;</strong> refers to sreeraajaganapathy Oil Mill</li>
               <li><strong>&quot;You,&quot; &quot;your&quot;</strong> refers to the user or customer</li>
               <li><strong>&quot;Website&quot;</strong> refers to our e-commerce platform</li>
               <li><strong>&quot;Products&quot;</strong> refers to the cooking oils and related items we sell</li>
@@ -171,7 +171,7 @@ export default function TermsAndConditions() {
           <section className="mb-8">
             <h2 className="text-2xl font-semibold text-gray-900 mb-4">8. Intellectual Property</h2>
             <p className="text-gray-700 leading-relaxed mb-4">
-              All content on this website, including text, graphics, logos, images, audio clips, and software, is the property of Sreerajaganapathy Oil Mill or its licensors and is protected by intellectual property laws.
+              All content on this website, including text, graphics, logos, images, audio clips, and software, is the property of sreeraajaganapathy Oil Mill or its licensors and is protected by intellectual property laws.
             </p>
             <p className="text-gray-700 leading-relaxed">
               You may not reproduce, distribute, modify, or create derivative works from our content without express written permission.
@@ -181,7 +181,7 @@ export default function TermsAndConditions() {
           <section className="mb-8">
             <h2 className="text-2xl font-semibold text-gray-900 mb-4">9. Limitation of Liability</h2>
             <p className="text-gray-700 leading-relaxed mb-4">
-              To the maximum extent permitted by law, Sreerajaganapathy Oil Mill shall not be liable for any indirect, incidental, special, consequential, or punitive damages arising from your use of the website or products.
+              To the maximum extent permitted by law, sreeraajaganapathy Oil Mill shall not be liable for any indirect, incidental, special, consequential, or punitive damages arising from your use of the website or products.
             </p>
             <p className="text-gray-700 leading-relaxed">
               Our total liability for any claim arising from your use of the website or products shall not exceed the amount you paid for the products in question.
@@ -191,7 +191,7 @@ export default function TermsAndConditions() {
           <section className="mb-8">
             <h2 className="text-2xl font-semibold text-gray-900 mb-4">10. Indemnification</h2>
             <p className="text-gray-700 leading-relaxed">
-              You agree to indemnify and hold harmless Sreerajaganapathy Oil Mill, its affiliates, officers, directors, employees, and agents from any claims, damages, losses, liabilities, and expenses (including legal fees) arising from your use of the website, violation of these Terms, or infringement of any rights of another party.
+              You agree to indemnify and hold harmless sreeraajaganapathy Oil Mill, its affiliates, officers, directors, employees, and agents from any claims, damages, losses, liabilities, and expenses (including legal fees) arising from your use of the website, violation of these Terms, or infringement of any rights of another party.
             </p>
           </section>
 
@@ -229,11 +229,11 @@ export default function TermsAndConditions() {
               If you have any questions about these Terms and Conditions, please contact us:
             </p>
             <div className="bg-white p-6 rounded-lg border border-gray-200">
-              <p className="text-gray-700 mb-2"><strong>Sreerajaganapathy Oil Mill</strong></p>
+              <p className="text-gray-700 mb-2"><strong>sreeraajaganapathy Oil Mill</strong></p>
               <p className="text-gray-700 mb-2">96N TC main road west</p>
               <p className="text-gray-700 mb-2">Srg valasu road</p>
               <p className="text-gray-700 mb-2">Vellakoil - 638111</p>
-              <p className="text-gray-700">Phone: <a href="tel:+919876543210" className="text-primary hover:underline">+91 98765 43210</a></p>
+              <p className="text-gray-700">Phone: <a href="tel:+918678981221" className="text-primary hover:underline">+91 86789 81221</a></p>
             </div>
           </section>
 

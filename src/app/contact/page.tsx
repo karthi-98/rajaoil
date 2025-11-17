@@ -3,11 +3,11 @@ import ContactForm from '@/components/contact/ContactForm'
 import ContactInfo from '@/components/contact/ContactInfo'
 
 export const metadata: Metadata = {
-  title: 'Contact Us - Sreerajaganapathy Oil Mill',
-  description: 'Get in touch with Sreerajaganapathy Oil Mill. Contact us for inquiries, orders, or support. We are here to help you.',
+  title: 'Contact Us - sreeraajaganapathy Oil Mill',
+  description: 'Get in touch with sreeraajaganapathy Oil Mill. Contact us for inquiries, orders, or support. We are here to help you.',
   keywords: ['contact us', 'customer support', 'oil mill contact', 'inquiry', 'order oil'],
   openGraph: {
-    title: 'Contact Us - Sreerajaganapathy Oil Mill',
+    title: 'Contact Us - sreeraajaganapathy Oil Mill',
     description: 'Get in touch with us for inquiries, orders, or support.',
     type: 'website',
     images: [{ url: '/images/logo_image.webp', width: 1200, height: 630 }],
@@ -21,11 +21,11 @@ export default function ContactPage() {
   const localBusinessSchema = {
     '@context': 'https://schema.org',
     '@type': 'LocalBusiness',
-    name: 'Sreerajaganapathy Oil Mill',
+    name: 'sreeraajaganapathy Oil Mill',
     image: 'https://rajaoil.com/images/logo_image.webp',
     '@id': 'https://rajaoil.com',
     url: 'https://rajaoil.com',
-    telephone: '+91-XXXXXXXXXX',
+    telephone: '+91-86789-81221',
     priceRange: '$$',
     address: {
       '@type': 'PostalAddress',
@@ -114,7 +114,7 @@ export default function ContactPage() {
                 allowFullScreen
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
-                title="Sreerajaganapathy Oil Mill Location"
+                title="sreeraajaganapathy Oil Mill Location"
               ></iframe>
             </div>
             <div className="mt-6 text-center">

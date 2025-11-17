@@ -238,11 +238,13 @@ function FirestoreExample() {
           {products.slice(0, 4).map((product) => (
             <div key={product.id} className="border rounded-lg p-4 hover:shadow-lg transition">
               {product.image && (
-                <img
-                  src={product.image}
-                  alt={product.name}
-                  className="w-full h-40 object-cover rounded mb-2"
-                />
+                <div className="w-full h-40 rounded mb-2 overflow-hidden">
+                  <img
+                    src={product.image}
+                    alt={product.name}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
               )}
               <h3 className="font-semibold">{product.name}</h3>
               <p className="text-sm text-gray-600 line-clamp-2">{product.description}</p>
@@ -321,7 +323,9 @@ function StorageExample() {
       {uploadedUrl && (
         <div className="bg-green-100 border border-green-400 rounded p-4">
           <p className="font-semibold mb-2">✅ Upload successful!</p>
-          <img src={uploadedUrl} alt="Uploaded" className="w-full max-w-md rounded mb-2" />
+          <div className="w-full max-w-md rounded mb-2 overflow-hidden">
+            <img src={uploadedUrl} alt="Uploaded" className="w-full h-auto" />
+          </div>
           <p className="text-xs break-all text-gray-600">{uploadedUrl}</p>
         </div>
       )}

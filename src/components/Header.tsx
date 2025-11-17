@@ -40,14 +40,14 @@ export default function Header() {
             <Link href="/" className="flex-shrink-0 flex items-center gap-2 md:gap-3">
               <Image
                 src="/images/logo_image.webp"
-                alt="Sreerajaganapathy Oil Mill"
+                alt="sreeraajaganapathy Oil Mill"
                 width={50}
                 height={50}
                 className="h-10 w-10 md:h-12 md:w-12 object-contain"
                 priority
               />
               <span className="text-black font-bold text-[3.5vw] sm:text-sm md:text-lg lg:text-xl tracking-tight">
-                SREERAJAGANAPATHYOILMILL
+                SREERAAJAGANAPATHYOILMILL
               </span>
             </Link>
           </div>

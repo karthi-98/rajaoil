@@ -4,13 +4,13 @@ const contactDetails = [
   {
     icon: MapPin,
     title: 'Our Address',
-    details: ['Sreerajaganapathy Oil Mill', '96N TC main road west', 'Srg valasu road', 'Vellakoil - 638111'],
+    details: ['sreeraajaganapathy Oil Mill', '96N TC main road west', 'Srg valasu road', 'Vellakoil - 638111'],
   },
   {
     icon: Phone,
     title: 'Phone Number',
-    details: ['+91 XXXXXXXXXX', '+91 XXXXXXXXXX'],
-    links: ['tel:+91XXXXXXXXXX', 'tel:+91XXXXXXXXXX'],
+    details: ['+91 86789 81221'],
+    links: ['tel:+918678981221'],
   },
   {
     icon: Clock,

@@ -4,12 +4,12 @@ import Link from 'next/link'
 import { Award, Droplet, Users, Leaf } from 'lucide-react'
 
 export const metadata: Metadata = {
-  title: 'About Us - Sreerajaganapathy Oil Mill',
-  description: 'Learn about Sreerajaganapathy Oil Mill, a trusted name in premium cooking oils since decades. Our commitment to quality, purity, and tradition.',
+  title: 'About Us - sreeraajaganapathy Oil Mill',
+  description: 'Learn about sreeraajaganapathy Oil Mill, a trusted name in premium cooking oils since decades. Our commitment to quality, purity, and tradition.',
   keywords: ['about us', 'oil mill', 'cooking oil manufacturer', 'premium oils', 'traditional oil mill'],
   openGraph: {
-    title: 'About Us - Sreerajaganapathy Oil Mill',
-    description: 'Learn about Sreerajaganapathy Oil Mill, a trusted name in premium cooking oils.',
+    title: 'About Us - sreeraajaganapathy Oil Mill',
+    description: 'Learn about sreeraajaganapathy Oil Mill, a trusted name in premium cooking oils.',
     type: 'website',
     images: [{ url: '/images/logo_image.webp', width: 1200, height: 630 }],
   },
@@ -45,7 +45,7 @@ export default function AboutPage() {
   const organizationSchema = {
     '@context': 'https://schema.org',
     '@type': 'Organization',
-    name: 'Sreerajaganapathy Oil Mill',
+    name: 'sreeraajaganapathy Oil Mill',
     alternateName: 'Raja Oil',
     url: 'https://rajaoil.com',
     logo: 'https://rajaoil.com/images/logo_image.webp',
@@ -89,7 +89,7 @@ export default function AboutPage() {
                 </h2>
                 <div className="space-y-4 text-gray-600 leading-relaxed">
                   <p>
-                    Sreerajaganapathy Oil Mill has been a trusted name in the cooking oil industry for decades.
+                    sreeraajaganapathy Oil Mill has been a trusted name in the cooking oil industry for decades.
                     What started as a small traditional oil mill has grown into a renowned brand, yet we have
                     never compromised on our core values of quality, purity, and authenticity.
                   </p>
@@ -107,7 +107,7 @@ export default function AboutPage() {
               <div className="relative h-[400px] md:h-[500px] rounded-lg overflow-hidden">
                 <Image
                   src="/images/logo_image.webp"
-                  alt="Sreerajaganapathy Oil Mill"
+                  alt="sreeraajaganapathy Oil Mill"
                   fill
                   className="object-contain p-8"
                 />

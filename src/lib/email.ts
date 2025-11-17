@@ -45,7 +45,7 @@ function generateOrderEmailHTML(data: OrderEmailData): string {
   const { orderId, items, total, subtotal, shippingCost, customerName, customerPhone, doorNo, address, district, state, pincode, notes, createdAt } = data
 
   let itemsHTML = ''
-  items.forEach((item, index) => {
+  items.forEach((item) => {
     itemsHTML += `
       <tr style="border-bottom: 1px solid #e5e7eb;">
         <td style="padding: 16px 8px; text-align: left;">

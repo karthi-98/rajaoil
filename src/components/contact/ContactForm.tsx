@@ -2,6 +2,7 @@
 
 import { useState, FormEvent } from 'react'
 import { Send } from 'lucide-react'
+import { submitContactForm } from '@/app/actions/contact'
 import {
   Select,
   SelectContent,
@@ -38,16 +39,24 @@ export default function ContactForm() {
     setSubmitStatus({ type: null, message: '' })
 
     try {
-      // Simulate API call - Replace with actual API endpoint
-      await new Promise((resolve) => setTimeout(resolve, 1500))
+      // Call server action to submit contact form
+      const response = await submitContactForm(formData)
 
-      // Success
-      setSubmitStatus({
-        type: 'success',
-        message: 'Thank you for your message! We will get back to you soon.',
-      })
-      setFormData({ name: '', phone: '', subject: '', message: '' })
-    } catch {
+      if (response.success) {
+        setSubmitStatus({
+          type: 'success',
+          message: response.message,
+        })
+        // Clear form on success
+        setFormData({ name: '', phone: '', subject: '', message: '' })
+      } else {
+        setSubmitStatus({
+          type: 'error',
+          message: response.message,
+        })
+      }
+    } catch (error) {
+      console.error('Form submission error:', error)
       setSubmitStatus({
         type: 'error',
         message: 'Something went wrong. Please try again later.',
@@ -79,7 +88,7 @@ export default function ContactForm() {
       {/* Phone */}
       <div>
         <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-2">
-          Phone Number
+          Phone Number <span className="text-red-500">*</span>
         </label>
         <input
           type="tel"
@@ -87,8 +96,9 @@ export default function ContactForm() {
           name="phone"
           value={formData.phone}
           onChange={handleChange}
+          required
           className="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all"
-          placeholder="+91 XXXXXXXXXX"
+          placeholder="+91 86789 81221"
         />
       </div>
 

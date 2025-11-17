@@ -8,14 +8,14 @@ export default function LoadingScreen() {
         <div className="mb-8 animate-pulse flex flex-col items-center gap-4">
           <Image
             src="/images/logo_image.webp"
-            alt="Sreerajaganapathy Oil Mill"
+            alt="sreeraajaganapathy Oil Mill"
             width={80}
             height={80}
             className="mx-auto"
             priority
           />
           <span className="text-primary font-bold text-2xl tracking-tight">
-            SREERAJAGANAPATHYOILMILL
+            sreeraajaganapathyOILMILL
           </span>
         </div>
 

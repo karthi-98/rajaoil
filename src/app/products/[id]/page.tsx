@@ -7,14 +7,15 @@ import ProductCard from '@/components/product/ProductCard'
 import type { Metadata } from 'next'
 
 interface ProductPageProps {
-  params: {
+  params: Promise<{
     id: string
-  }
+  }>
 }
 
 // Generate metadata for SEO
 export async function generateMetadata({ params }: ProductPageProps): Promise<Metadata> {
-  const decodedId = decodeURIComponent(params.id.replace(/-/g, ' '))
+  const { id } = await params
+  const decodedId = decodeURIComponent(id.replace(/-/g, ' '))
   const product = await ProductService.getProductById(decodedId)
 
   if (!product) {
@@ -35,7 +36,8 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
 }
 
 export default async function ProductDetailPage({ params }: ProductPageProps) {
-  const decodedId = decodeURIComponent(params.id.replace(/-/g, ' '))
+  const { id } = await params
+  const decodedId = decodeURIComponent(id.replace(/-/g, ' '))
   const product = await ProductService.getProductById(decodedId)
 
   if (!product) {
@@ -56,7 +58,7 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
 
   const breadcrumbItems = [
     { label: 'Products', href: '/products' },
-    { label: product.id, href: `/products/${params.id}` },
+    { label: product.id, href: `/products/${id}` },
   ]
 
   return (

@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://sreeraajaganapathyoilmill.com
+
+# Sitemaps
+Sitemap: https://sreeraajaganapathyoilmill.com/sitemap.xml

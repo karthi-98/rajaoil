@@ -8,6 +8,7 @@ import { Trash2, ShoppingBag, ArrowLeft } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { Modal } from '@/components/ui/Modal'
+import { OrderSuccessDialog } from '@/components/checkout/OrderSuccessDialog'
 
 export default function CheckoutPage() {
   const router = useRouter()
@@ -24,6 +25,8 @@ export default function CheckoutPage() {
 
   // Modal state
   const [showModal, setShowModal] = useState(false)
+  const [showSuccessDialog, setShowSuccessDialog] = useState(false)
+  const [dialogStage, setDialogStage] = useState<'processing' | 'success' | 'redirecting'>('processing')
   const [modalType, setModalType] = useState<'success' | 'error'>('success')
   const [modalTitle, setModalTitle] = useState('')
   const [modalMessage, setModalMessage] = useState('')
@@ -33,16 +36,21 @@ export default function CheckoutPage() {
   const SHIPPING_COST = 100
   const finalTotal = total + SHIPPING_COST
 
-  // Redirect to home if cart is empty
+  // Redirect to home if cart is empty (but not during order processing or success dialog)
   useEffect(() => {
-    if (items.length === 0 && !isSubmitting) {
+    // Don't redirect if we're processing an order or showing success
+    if (showSuccessDialog || isSubmitting) {
+      return
+    }
+
+    if (items.length === 0) {
       // Small delay to show empty state
       const timer = setTimeout(() => {
         router.push('/')
       }, 2000)
       return () => clearTimeout(timer)
     }
-  }, [items.length, router, isSubmitting])
+  }, [items.length, router, isSubmitting, showSuccessDialog])
 
   const handleCheckout = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -73,6 +81,10 @@ export default function CheckoutPage() {
 
     setIsSubmitting(true)
 
+    // Show dialog immediately in processing stage
+    setDialogStage('processing')
+    setShowSuccessDialog(true)
+
     try {
       // Send order to backend API
       const response = await fetch('/api/orders/create', {
@@ -99,17 +111,22 @@ export default function CheckoutPage() {
       const data = await response.json()
 
       if (data.success) {
-        // Clear cart
-        clearCart()
+        // DON'T clear cart yet - wait until after dialog finishes
+        // This prevents the empty cart redirect from interfering
 
-        // Show success modal
-        setModalType('success')
-        setModalTitle('Order Placed Successfully!')
+        // Set order ID and move to success stage
         setOrderId(data.orderId)
-        setModalMessage('One of our executives will call you shortly to confirm your order and discuss payment options.')
-        setShowModal(true)
+        setDialogStage('success')
         setIsSubmitting(false)
+
+        // After 2 seconds, move to redirecting stage
+        setTimeout(() => {
+          setDialogStage('redirecting')
+          // Cart will be cleared when dialog closes (in handleCloseSuccessDialog)
+        }, 2000)
       } else {
+        // Hide success dialog and show error modal
+        setShowSuccessDialog(false)
         setModalType('error')
         setModalTitle('Order Failed')
         setModalMessage(data.error || 'Failed to place order. Please try again.')
@@ -118,6 +135,8 @@ export default function CheckoutPage() {
       }
     } catch (error) {
       console.error('Order submission error:', error)
+      // Hide success dialog and show error modal
+      setShowSuccessDialog(false)
       setModalType('error')
       setModalTitle('Something Went Wrong')
       setModalMessage('Unable to process your order. Please try again or contact support.')
@@ -129,12 +148,20 @@ export default function CheckoutPage() {
   const handleCloseModal = () => {
     setShowModal(false)
     if (modalType === 'success') {
-      // Redirect to home after closing success modal
-      router.push('/')
+      // Redirect to products after closing success modal
+      router.push('/products')
     }
   }
 
-  if (items.length === 0) {
+  const handleCloseSuccessDialog = () => {
+    setShowSuccessDialog(false)
+    setDialogStage('processing') // Reset for next time
+    clearCart() // Clear cart when dialog closes
+    // Redirect happens in the OrderSuccessDialog component
+  }
+
+  // Only show empty cart message if dialog is not showing
+  if (items.length === 0 && !showSuccessDialog) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4">
         <div className="text-center">
@@ -437,38 +464,29 @@ export default function CheckoutPage() {
         </div>
       </div>
 
-      {/* Modal */}
+      {/* Success Dialog with Progress Animation */}
+      <OrderSuccessDialog
+        isOpen={showSuccessDialog}
+        orderId={orderId}
+        stage={dialogStage}
+        onClose={handleCloseSuccessDialog}
+      />
+
+      {/* Error Modal */}
       <Modal
-        isOpen={showModal}
+        isOpen={showModal && modalType === 'error'}
         onClose={handleCloseModal}
         title={modalTitle}
         type={modalType}
       >
         <div className="space-y-4">
-          {modalType === 'success' && orderId && (
-            <div className="bg-gray-50 rounded-lg p-4 border border-gray-200">
-              <p className="text-sm text-gray-600 mb-1">Order ID</p>
-              <p className="text-lg font-bold text-gray-900">{orderId}</p>
-            </div>
-          )}
-
           <p className="text-base leading-relaxed">{modalMessage}</p>
-
-          {modalType === 'success' && (
-            <p className="text-sm text-gray-500 mt-2">
-              Thank you for choosing Raja Oil!
-            </p>
-          )}
 
           <button
             onClick={handleCloseModal}
-            className={`w-full py-3 px-4 rounded-lg font-semibold text-white transition-colors mt-4 ${
-              modalType === 'success'
-                ? 'bg-green-600 hover:bg-green-700'
-                : 'bg-primary hover:bg-primary/90'
-            }`}
+            className="w-full py-3 px-4 rounded-lg font-semibold text-white transition-colors mt-4 bg-primary hover:bg-primary/90"
           >
-            {modalType === 'success' ? 'Continue Shopping' : 'Close'}
+            Close
           </button>
         </div>
       </Modal>

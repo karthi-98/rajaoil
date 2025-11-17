@@ -65,7 +65,7 @@ export default function HeroSlider() {
       setSlides(sortedSlides)
       console.log('🎯 Normalized & Sorted slides:', sortedSlides)
     }
-  }, [data])
+  }, [data, error, loading])
 
   // Loading state
   if (loading) {
@@ -118,34 +118,50 @@ export default function HeroSlider() {
     <section className="w-full relative px-4 sm:px-6 lg:px-8 py-6 pb-2 overflow-hidden">
       {/* Background decorative images - Left side */}
       <div className="hidden lg:block absolute left-0 top-1/2 -translate-y-1/2 w-[20vw] h-[80vh] pointer-events-none">
-        <img
-          src="/images/background/coconut-min.png"
-          alt="Coconut oil background"
-          className="absolute top-[10%] left-[5%] w-32 h-32 object-contain animate-float mix-blend-multiply"
+        <div
+          className="absolute top-[10%] left-[5%] w-32 h-32 animate-float mix-blend-multiply"
           style={{ animationDelay: '0s' }}
-        />
-        <img
-          src="/images/background/sesame-min.png"
-          alt="Sesame oil background"
-          className="absolute bottom-[15%] left-[10%] w-40 h-40 object-contain animate-float mix-blend-multiply"
+        >
+          <img
+            src="/images/background/coconut-min.png"
+            alt="Coconut oil background"
+            className="w-full h-full object-contain"
+          />
+        </div>
+        <div
+          className="absolute bottom-[15%] left-[10%] w-40 h-40 animate-float mix-blend-multiply"
           style={{ animationDelay: '2s' }}
-        />
+        >
+          <img
+            src="/images/background/sesame-min.png"
+            alt="Sesame oil background"
+            className="w-full h-full object-contain"
+          />
+        </div>
       </div>
 
       {/* Background decorative images - Right side */}
       <div className="hidden lg:block absolute right-0 top-1/2 -translate-y-1/2 w-[20vw] h-[80vh] pointer-events-none">
-        <img
-          src="/images/background/ground nut-min.png"
-          alt="Ground nut oil background"
-          className="absolute top-[15%] right-[10%] w-36 h-36 object-contain animate-float mix-blend-multiply"
+        <div
+          className="absolute top-[15%] right-[10%] w-36 h-36 animate-float mix-blend-multiply"
           style={{ animationDelay: '1s' }}
-        />
-        <img
-          src="/images/background/Jangery-min.png"
-          alt="Jaggery background"
-          className="absolute bottom-[10%] right-[5%] w-32 h-32 object-contain animate-float mix-blend-multiply"
+        >
+          <img
+            src="/images/background/ground nut-min.png"
+            alt="Ground nut oil background"
+            className="w-full h-full object-contain"
+          />
+        </div>
+        <div
+          className="absolute bottom-[10%] right-[5%] w-32 h-32 animate-float mix-blend-multiply"
           style={{ animationDelay: '3s' }}
-        />
+        >
+          <img
+            src="/images/background/Jangery-min.png"
+            alt="Jaggery background"
+            className="w-full h-full object-contain"
+          />
+        </div>
       </div>
 
       <div className="md:w-[60vw] mx-auto relative z-10">

@@ -29,8 +29,8 @@ const montserrat = Montserrat({
 
 export const metadata: Metadata = {
   title: {
-    default: "Sreerajaganapathy Oil Mill - Premium Quality Cooking Oils",
-    template: "%s | Sreerajaganapathy Oil Mill",
+    default: "sreeraajaganapathy Oil Mill - Premium Quality Cooking Oils",
+    template: "%s | sreeraajaganapathy Oil Mill",
   },
   description: "Premium quality cooking oils including coconut oil, groundnut oil, and gingelly oil. Traditional methods, pure and natural. Trusted by families for generations.",
   keywords: ["cooking oil", "coconut oil", "groundnut oil", "gingelly oil", "sesame oil", "premium oil", "natural oil"],
