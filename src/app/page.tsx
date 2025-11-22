@@ -1,43 +1,99 @@
 import HeroSlider from "@/components/home/HeroSlider";
-import ProductGrid from "@/components/product/ProductGrid";
-import Testimonials from "@/components/home/Testimonials";
-import ProductShowcase from "@/components/home/ProductShowcase";
-import { ProductService } from "@/services/product.service";
-import Link from "next/link";
+import AboutUs from "@/components/home/AboutUs";
+import MissionStatement from "@/components/home/MissionStatement";
+import WhyChooseUs from "@/components/home/WhyChooseUs";
+import OurServices from "@/components/home/OurServices";
+import ContactSection from "@/components/home/ContactSection";
 
-export default async function Home() {
-  // Fetch products from Firebase
-  const products = await ProductService.getAllProducts();
+export default function Home() {
 
   return (
     <div className="font-sans bg-white">
       {/* Hero Slider Section */}
       <HeroSlider />
 
-      {/* Featured Products Section */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="text-center mb-4 mt-8">
-          <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2">Featured Products</h2>
-          <p className="text-sm md:text-base text-gray-600 mb-3">Discover our most popular premium quality oils</p>
-        </div>
-        <div className="mt-2">
-          <ProductGrid products={products.slice(0, 4)} compact />
-        </div>
-        <div className="text-center mt-8 mb-8">
+      {/* About Us Section */}
+      <AboutUs />
 
-        <Link
-            href="/products"
-            className="inline-block bg-primary hover:bg-primary/90 text-white font-semibold px-6 py-2 text-sm rounded-lg transition-colors"
-            >
-            View All Products
-          </Link>
+      {/* Mission Statement Section */}
+      <MissionStatement />
+
+      {/* Why Choose Us Section */}
+      <WhyChooseUs />
+
+      {/* Products Section */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div className="text-center mb-12">
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Our Products</h2>
+          <div className="w-24 h-1 bg-primary mx-auto mb-4"></div>
+          <p className="text-gray-700 max-w-2xl mx-auto">
+            Discover our premium quality oils made with traditional extraction methods
+          </p>
+        </div>
+
+        {/* Product Categories */}
+        <div className="grid md:grid-cols-3 gap-8">
+          <div className="relative group overflow-hidden rounded-2xl shadow-lg hover:shadow-xl transition-shadow h-80">
+            <div className="absolute inset-0">
+              <img
+                src="/images/sesame-oil-bg.jpg"
+                alt="Sesame Oil Background"
+                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+              />
+              <div className="absolute inset-0 bg-black/40 group-hover:bg-black/50 transition-colors"></div>
             </div>
-      </section>
-      {/* Product Showcase Section */}
-      <ProductShowcase />
+            <div className="relative h-full p-8 flex flex-col items-center justify-center text-center z-10">
+              <div className="text-5xl mb-4 transform group-hover:scale-110 transition-transform duration-300">🌰</div>
+              <h3 className="text-2xl font-bold text-white mb-2">Sesame Oil</h3>
+              <p className="text-white/90 text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300 transform translate-y-4 group-hover:translate-y-0">
+                Pure and aromatic, perfect for traditional cooking
+              </p>
+            </div>
+          </div>
 
-      {/* Customer Testimonials Section */}
-      <Testimonials />
+          <div className="relative group overflow-hidden rounded-2xl shadow-lg hover:shadow-xl transition-shadow h-80">
+            <div className="absolute inset-0">
+              <img
+                src="/images/groundnut-oil-bg.jpg"
+                alt="Groundnut Oil Background"
+                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+              />
+              <div className="absolute inset-0 bg-black/40 group-hover:bg-black/50 transition-colors"></div>
+            </div>
+            <div className="relative h-full p-8 flex flex-col items-center justify-center text-center z-10">
+              <div className="text-5xl mb-4 transform group-hover:scale-110 transition-transform duration-300">🥜</div>
+              <h3 className="text-2xl font-bold text-white mb-2">Groundnut Oil</h3>
+              <p className="text-white/90 text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300 transform translate-y-4 group-hover:translate-y-0">
+                Rich nutty flavor, ideal for deep frying
+              </p>
+            </div>
+          </div>
+
+          <div className="relative group overflow-hidden rounded-2xl shadow-lg hover:shadow-xl transition-shadow h-80">
+            <div className="absolute inset-0">
+              <img
+                src="/images/coconut-oil-bg.jpg"
+                alt="Coconut Oil Background"
+                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+              />
+              <div className="absolute inset-0 bg-black/40 group-hover:bg-black/50 transition-colors"></div>
+            </div>
+            <div className="relative h-full p-8 flex flex-col items-center justify-center text-center z-10">
+              <div className="text-5xl mb-4 transform group-hover:scale-110 transition-transform duration-300">🥥</div>
+              <h3 className="text-2xl font-bold text-white mb-2">Coconut Oil</h3>
+              <p className="text-white/90 text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300 transform translate-y-4 group-hover:translate-y-0">
+                Fresh and pure, excellent for hair and skin
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Our Services Section */}
+      <OurServices />
+
+      {/* Contact Section */}
+      <ContactSection />
     </div>
   );
 }
