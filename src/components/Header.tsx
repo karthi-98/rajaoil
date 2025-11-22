@@ -61,7 +61,7 @@ export default function Header() {
   const menuItems = [
     { name: 'Home', href: '/' },
     { name: 'Products', href: '/products' },
-    { name: 'About Us', href: '/about' },
+    { name: 'Our Services', href: '/services' },
     { name: 'Contact Us', href: '/contact' },
   ]
 
@@ -120,7 +120,7 @@ export default function Header() {
               className="p-2 text-black hover:text-primary relative rounded-full transition-all duration-200"
               aria-label="Open shopping cart"
             >
-              <ShoppingCart className="w-8 h-8 hover:bg-red-600 hover:text-white transition-all duration-200 hover:cursor-pointer hover:rounded-full p-2" />
+              <ShoppingCart className="w-10 h-10 hover:bg-red-600 hover:text-white transition-all duration-200 hover:cursor-pointer hover:rounded-full p-2" />
               {itemCount > 0 && (
                 <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center font-medium">
                   {itemCount}
@@ -138,7 +138,7 @@ export default function Header() {
               className="p-2 text-black hover:text-primary relative rounded-full transition-all duration-200"
               aria-label="Open shopping cart"
             >
-              <ShoppingCart className="h-6 w-6" />
+              <ShoppingCart className="h-7 w-7" />
               {itemCount > 0 && (
                 <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center font-medium">
                   {itemCount}

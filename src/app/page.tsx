@@ -2,8 +2,8 @@ import HeroSlider from "@/components/home/HeroSlider";
 import AboutUs from "@/components/home/AboutUs";
 import MissionStatement from "@/components/home/MissionStatement";
 import WhyChooseUs from "@/components/home/WhyChooseUs";
-import OurServices from "@/components/home/OurServices";
 import ContactSection from "@/components/home/ContactSection";
+import Link from "next/link";
 
 export default function Home() {
 
@@ -33,7 +33,7 @@ export default function Home() {
 
         {/* Product Categories */}
         <div className="grid md:grid-cols-3 gap-8">
-          <div className="relative group overflow-hidden rounded-2xl shadow-lg hover:shadow-xl transition-shadow h-80">
+          <Link href="/products/category/sesame" className="relative group overflow-hidden rounded-2xl shadow-lg hover:shadow-xl transition-shadow h-80 cursor-pointer">
             <div className="absolute inset-0">
               <img
                 src="/images/sesame-oil-bg.jpg"
@@ -49,9 +49,9 @@ export default function Home() {
                 Pure and aromatic, perfect for traditional cooking
               </p>
             </div>
-          </div>
+          </Link>
 
-          <div className="relative group overflow-hidden rounded-2xl shadow-lg hover:shadow-xl transition-shadow h-80">
+          <Link href="/products/category/groundnut" className="relative group overflow-hidden rounded-2xl shadow-lg hover:shadow-xl transition-shadow h-80 cursor-pointer">
             <div className="absolute inset-0">
               <img
                 src="/images/groundnut-oil-bg.jpg"
@@ -67,9 +67,9 @@ export default function Home() {
                 Rich nutty flavor, ideal for deep frying
               </p>
             </div>
-          </div>
+          </Link>
 
-          <div className="relative group overflow-hidden rounded-2xl shadow-lg hover:shadow-xl transition-shadow h-80">
+          <Link href="/products/category/coconut" className="relative group overflow-hidden rounded-2xl shadow-lg hover:shadow-xl transition-shadow h-80 cursor-pointer">
             <div className="absolute inset-0">
               <img
                 src="/images/coconut-oil-bg.jpg"
@@ -85,12 +85,9 @@ export default function Home() {
                 Fresh and pure, excellent for hair and skin
               </p>
             </div>
-          </div>
+          </Link>
         </div>
       </section>
-
-      {/* Our Services Section */}
-      <OurServices />
 
       {/* Contact Section */}
       <ContactSection />

@@ -14,6 +14,7 @@ export interface Product {
   mainImage: string
   types: ProductType[]
   description?: string
+  category?: string
 }
 
 // Selected variant for cart

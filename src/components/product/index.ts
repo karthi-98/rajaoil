@@ -1,3 +1,5 @@
 export { default as ProductCard } from './ProductCard'
 export { default as ProductGrid } from './ProductGrid'
 export { default as ProductImageSlider } from './ProductImageSlider'
+export { default as VariantCard } from './VariantCard'
+export { default as VariantGrid } from './VariantGrid'

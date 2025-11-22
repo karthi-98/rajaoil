@@ -74,4 +74,34 @@ export class ProductService {
       return []
     }
   }
+
+  /**
+   * Get products by category
+   */
+  static async getProductsByCategory(category: string): Promise<Product[]> {
+    try {
+      const productsRef = collection(db, COLLECTION_NAME)
+      const q = query(
+        productsRef,
+        where('docType', '==', 'product'),
+        where('category', '==', category.toUpperCase())
+      )
+      const querySnapshot = await getDocs(q)
+
+      const products: Product[] = []
+
+      querySnapshot.forEach((doc) => {
+        products.push({
+          id: doc.id,
+          ...(doc.data() as Omit<Product, 'id'>),
+        })
+      })
+
+      console.log(`✅ Fetched ${products.length} products for category: ${category}`)
+      return products
+    } catch (error) {
+      console.error('❌ Error fetching products by category:', error)
+      return []
+    }
+  }
 }
