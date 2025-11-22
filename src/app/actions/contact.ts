@@ -7,8 +7,9 @@ import nodemailer from 'nodemailer'
 // Interface for contact form data
 export interface ContactFormData {
   name: string
-  phone: string
-  subject: string
+  mobile: string
+  email: string
+  product: string
   message: string
 }
 
@@ -17,6 +18,17 @@ export interface ContactFormResponse {
   success: boolean
   message: string
   submissionId?: string
+}
+
+// Product labels for display
+const productLabels: { [key: string]: string } = {
+  'Sesame Oil': '🫒 Sesame Oil',
+  'Groundnut Oil': '🥜 Groundnut Oil',
+  'Coconut Oil': '🥥 Coconut Oil',
+  'Bulk Order': '📦 Bulk Order',
+  'Export': '🌍 Export Services',
+  'Private Labelling': '🏭 Private Labelling / OEM',
+  'Other': '📋 Other',
 }
 
 // Create Gmail transporter for contact form emails
@@ -32,15 +44,6 @@ const transporter = nodemailer.createTransport({
  * Generate HTML email for contact form submission
  */
 function generateContactEmailHTML(data: ContactFormData): string {
-  const subjectLabels: { [key: string]: string } = {
-    general: '📋 General Inquiry',
-    product: '🫒 Product Information',
-    order: '📦 Order & Delivery',
-    wholesale: '🏭 Wholesale/Bulk Orders',
-    feedback: '💬 Feedback & Suggestions',
-    support: '🆘 Customer Support',
-  }
-
   return `
     <!DOCTYPE html>
     <html>
@@ -54,36 +57,44 @@ function generateContactEmailHTML(data: ContactFormData): string {
 
           <!-- Header -->
           <div style="background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%); color: white; padding: 30px 20px; border-radius: 12px 12px 0 0; text-align: center;">
-            <h1 style="margin: 0; font-size: 28px; font-weight: bold;">📨 New Contact Form Submission</h1>
-            <p style="margin: 10px 0 0 0; font-size: 16px; opacity: 0.9;">sreeraajaganapathy Oil Mill</p>
+            <h1 style="margin: 0; font-size: 28px; font-weight: bold;">📨 New Enquiry Received</h1>
+            <p style="margin: 10px 0 0 0; font-size: 16px; opacity: 0.9;">Sree Raajaganapathy Oil Mill</p>
           </div>
 
-          <!-- Subject Badge -->
+          <!-- Product Badge -->
           <div style="background: #fff; padding: 20px; text-align: center; border-bottom: 2px solid #e5e7eb;">
             <div style="display: inline-block; background: #fef3c7; color: #92400e; padding: 8px 16px; border-radius: 8px; font-weight: 600; font-size: 16px;">
-              ${subjectLabels[data.subject] || data.subject}
+              ${productLabels[data.product] || data.product}
             </div>
           </div>
 
           <!-- Contact Details -->
           <div style="background: white; padding: 24px; border-bottom: 1px solid #e5e7eb;">
-            <h2 style="margin: 0 0 16px 0; color: #1f2937; font-size: 20px; font-weight: 600;">👤 Sender Details</h2>
+            <h2 style="margin: 0 0 16px 0; color: #1f2937; font-size: 20px; font-weight: 600;">👤 Customer Details</h2>
             <table style="width: 100%; border-collapse: collapse;">
               <tr>
                 <td style="padding: 12px 0; color: #6b7280; font-weight: 500; width: 120px;">Name:</td>
                 <td style="padding: 12px 0; color: #1f2937; font-weight: 600;">${data.name}</td>
               </tr>
               <tr>
-                <td style="padding: 12px 0; color: #6b7280; font-weight: 500;">Phone:</td>
+                <td style="padding: 12px 0; color: #6b7280; font-weight: 500;">Mobile:</td>
                 <td style="padding: 12px 0; color: #1f2937; font-weight: 600;">
-                  <a href="tel:${data.phone}" style="color: #dc2626; text-decoration: none;">
-                    ${data.phone || 'Not provided'}
+                  <a href="tel:${data.mobile}" style="color: #dc2626; text-decoration: none;">
+                    ${data.mobile}
                   </a>
                 </td>
               </tr>
               <tr>
-                <td style="padding: 12px 0; color: #6b7280; font-weight: 500;">Subject:</td>
-                <td style="padding: 12px 0; color: #1f2937; font-weight: 600;">${subjectLabels[data.subject] || data.subject}</td>
+                <td style="padding: 12px 0; color: #6b7280; font-weight: 500;">Email:</td>
+                <td style="padding: 12px 0; color: #1f2937; font-weight: 600;">
+                  <a href="mailto:${data.email}" style="color: #dc2626; text-decoration: none;">
+                    ${data.email}
+                  </a>
+                </td>
+              </tr>
+              <tr>
+                <td style="padding: 12px 0; color: #6b7280; font-weight: 500;">Product:</td>
+                <td style="padding: 12px 0; color: #1f2937; font-weight: 600;">${productLabels[data.product] || data.product}</td>
               </tr>
             </table>
           </div>
@@ -93,7 +104,7 @@ function generateContactEmailHTML(data: ContactFormData): string {
             <h2 style="margin: 0 0 16px 0; color: #1f2937; font-size: 20px; font-weight: 600;">💬 Message</h2>
             <div style="background: #f9fafb; padding: 16px; border-radius: 8px; border-left: 4px solid #dc2626;">
               <p style="margin: 0; color: #1f2937; line-height: 1.8; white-space: pre-wrap;">
-                ${data.message}
+                ${data.message || 'No message provided'}
               </p>
             </div>
           </div>
@@ -116,11 +127,14 @@ function generateContactEmailHTML(data: ContactFormData): string {
 
           <!-- Action Buttons -->
           <div style="background: white; padding: 24px; text-align: center; border-bottom: 1px solid #e5e7eb;">
-            <a href="mailto:${data.phone ? data.phone : 'N/A'}" style="display: inline-block; background: #dc2626; color: white; padding: 10px 20px; border-radius: 6px; text-decoration: none; margin-right: 10px; font-weight: 600;">
-              Reply
+            <a href="mailto:${data.email}" style="display: inline-block; background: #dc2626; color: white; padding: 12px 24px; border-radius: 6px; text-decoration: none; margin-right: 10px; font-weight: 600;">
+              📧 Reply via Email
+            </a>
+            <a href="https://wa.me/${data.mobile.replace(/\D/g, '')}" style="display: inline-block; background: #25D366; color: white; padding: 12px 24px; border-radius: 6px; text-decoration: none; font-weight: 600;">
+              📱 WhatsApp
             </a>
             <p style="margin: 16px 0 0 0; color: #6b7280; font-size: 12px;">
-              You can also contact them at: ${data.phone || 'N/A'}
+              Mobile: ${data.mobile} | Email: ${data.email}
             </p>
           </div>
 
@@ -130,7 +144,7 @@ function generateContactEmailHTML(data: ContactFormData): string {
               This submission has been automatically saved to your Firestore database.
             </p>
             <p style="margin: 8px 0 0 0; color: #9ca3af; font-size: 12px;">
-              sreeraajaganapathy Oil Mill - Premium Cooking Oils
+              Sree Raajaganapathy Oil Mill - Premium Cooking Oils
             </p>
           </div>
 
@@ -147,20 +161,29 @@ export async function submitContactForm(
   formData: ContactFormData
 ): Promise<ContactFormResponse> {
   try {
-    // Validate form data
-    if (!formData.name || !formData.phone || !formData.subject || !formData.message) {
+    // Validate required fields
+    if (!formData.name || !formData.mobile || !formData.email || !formData.product) {
       return {
         success: false,
-        message: 'Please fill in all required fields (Name, Phone, Subject, and Message)',
+        message: 'Please fill in all required fields (Name, Mobile, Email, and Product)',
       }
     }
 
-    // Validate phone format (basic validation)
-    const phoneRegex = /^[0-9\s\-\+()]{10,}$/
-    if (!phoneRegex.test(formData.phone.replace(/\s/g, ''))) {
+    // Validate mobile format (10 digits)
+    const mobileRegex = /^[0-9]{10}$/
+    if (!mobileRegex.test(formData.mobile.replace(/\s/g, ''))) {
       return {
         success: false,
-        message: 'Please enter a valid phone number',
+        message: 'Please enter a valid 10-digit mobile number',
+      }
+    }
+
+    // Validate email format
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    if (!emailRegex.test(formData.email)) {
+      return {
+        success: false,
+        message: 'Please enter a valid email address',
       }
     }
 
@@ -171,19 +194,20 @@ export async function submitContactForm(
     const docRef = await addDoc(contactFormRef, {
       // ===== USER INFORMATION =====
       name: formData.name.trim(),
-      phone: formData.phone.trim(),
-      subject: formData.subject,
-      message: formData.message.trim(),
+      mobile: formData.mobile.trim(),
+      email: formData.email.trim().toLowerCase(),
+      product: formData.product,
+      message: formData.message?.trim() || '',
 
       // ===== ADMIN FIELDS =====
-      status: 'new', // Options: 'new', 'replied', 'archived'
-      replied: false,
-      replyMessage: '', // Admin will fill this when replying to the user
+      status: 'new', // Options: 'new', 'contacted', 'converted', 'archived'
+      contacted: false,
       adminNotes: '', // Internal notes for admin team
 
       // ===== TIMESTAMPS =====
       createdAt: serverTimestamp(),
-      repliedAt: null, // Will be set when admin replies
+      contactedAt: null, // Will be set when admin contacts customer
+      updatedAt: serverTimestamp(),
     })
 
     console.log('✅ Contact form saved to Firestore:', docRef.id)
@@ -193,10 +217,10 @@ export async function submitContactForm(
       const htmlContent = generateContactEmailHTML(formData)
 
       const mailOptions = {
-        from: `"Raja Oil Contact" <${process.env.GMAIL_USER}>`,
+        from: `"Raja Oil Enquiry" <${process.env.GMAIL_USER}>`,
         to: 'karthisclan@gmail.com',
-        replyTo: formData.phone || formData.name,
-        subject: `📨 New Contact Form: ${formData.subject} - ${formData.name}`,
+        replyTo: formData.email,
+        subject: `📨 New Enquiry: ${formData.product} - ${formData.name}`,
         html: htmlContent,
       }
 
@@ -209,7 +233,7 @@ export async function submitContactForm(
 
     return {
       success: true,
-      message: 'Thank you for your message! We will get back to you soon.',
+      message: 'Thank you for your enquiry! We will contact you soon.',
       submissionId: docRef.id,
     }
   } catch (error) {

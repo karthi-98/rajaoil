@@ -14,8 +14,9 @@ import {
 export default function ContactForm() {
   const [formData, setFormData] = useState({
     name: '',
-    phone: '',
-    subject: '',
+    mobile: '',
+    email: '',
+    product: '',
     message: '',
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -29,8 +30,8 @@ export default function ContactForm() {
     setFormData((prev) => ({ ...prev, [name]: value }))
   }
 
-  const handleSubjectChange = (value: string) => {
-    setFormData((prev) => ({ ...prev, subject: value }))
+  const handleProductChange = (value: string) => {
+    setFormData((prev) => ({ ...prev, product: value }))
   }
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
@@ -39,7 +40,6 @@ export default function ContactForm() {
     setSubmitStatus({ type: null, message: '' })
 
     try {
-      // Call server action to submit contact form
       const response = await submitContactForm(formData)
 
       if (response.success) {
@@ -47,8 +47,7 @@ export default function ContactForm() {
           type: 'success',
           message: response.message,
         })
-        // Clear form on success
-        setFormData({ name: '', phone: '', subject: '', message: '' })
+        setFormData({ name: '', mobile: '', email: '', product: '', message: '' })
       } else {
         setSubmitStatus({
           type: 'error',
@@ -67,11 +66,11 @@ export default function ContactForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6">
+    <form onSubmit={handleSubmit} className="space-y-4">
       {/* Name */}
       <div>
-        <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
-          Full Name <span className="text-red-500">*</span>
+        <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
+          Name <span className="text-red-500">*</span>
         </label>
         <input
           type="text"
@@ -81,61 +80,79 @@ export default function ContactForm() {
           onChange={handleChange}
           required
           className="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all"
-          placeholder="Enter your full name"
+          placeholder="Enter your name"
         />
       </div>
 
-      {/* Phone */}
+      {/* Mobile */}
       <div>
-        <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-2">
-          Phone Number <span className="text-red-500">*</span>
+        <label htmlFor="mobile" className="block text-sm font-medium text-gray-700 mb-1">
+          Mobile Number <span className="text-red-500">*</span>
         </label>
         <input
           type="tel"
-          id="phone"
-          name="phone"
-          value={formData.phone}
+          id="mobile"
+          name="mobile"
+          value={formData.mobile}
           onChange={handleChange}
           required
+          pattern="[0-9]{10}"
           className="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all"
-          placeholder="+91 86789 81221"
+          placeholder="Enter 10-digit mobile number"
         />
       </div>
 
-      {/* Subject */}
+      {/* Email */}
       <div>
-        <label htmlFor="subject" className="block text-sm font-medium text-gray-700 mb-2">
-          Subject <span className="text-red-500">*</span>
+        <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
+          Email <span className="text-red-500">*</span>
         </label>
-        <Select value={formData.subject} onValueChange={handleSubjectChange} required>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          value={formData.email}
+          onChange={handleChange}
+          required
+          className="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all"
+          placeholder="Enter your email"
+        />
+      </div>
+
+      {/* Product / Requirement */}
+      <div>
+        <label htmlFor="product" className="block text-sm font-medium text-gray-700 mb-1">
+          Product / Requirement <span className="text-red-500">*</span>
+        </label>
+        <Select value={formData.product} onValueChange={handleProductChange} required>
           <SelectTrigger className="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all bg-white">
-            <SelectValue placeholder="Select a subject" />
+            <SelectValue placeholder="Select a product" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="general">General Inquiry</SelectItem>
-            <SelectItem value="product">Product Information</SelectItem>
-            <SelectItem value="order">Order & Delivery</SelectItem>
-            <SelectItem value="wholesale">Wholesale/Bulk Orders</SelectItem>
-            <SelectItem value="feedback">Feedback & Suggestions</SelectItem>
-            <SelectItem value="support">Customer Support</SelectItem>
+            <SelectItem value="Sesame Oil">Sesame Oil</SelectItem>
+            <SelectItem value="Groundnut Oil">Groundnut Oil</SelectItem>
+            <SelectItem value="Coconut Oil">Coconut Oil</SelectItem>
+            <SelectItem value="Bulk Order">Bulk Order</SelectItem>
+            <SelectItem value="Export">Export Services</SelectItem>
+            <SelectItem value="Private Labelling">Private Labelling / OEM</SelectItem>
+            <SelectItem value="Other">Other</SelectItem>
           </SelectContent>
         </Select>
       </div>
 
       {/* Message */}
       <div>
-        <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2">
-          Message <span className="text-red-500">*</span>
+        <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-1">
+          Message
         </label>
         <textarea
           id="message"
           name="message"
           value={formData.message}
           onChange={handleChange}
-          required
-          rows={6}
+          rows={4}
           className="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all resize-none"
-          placeholder="Tell us more about your inquiry..."
+          placeholder="Enter your message or requirements"
         />
       </div>
 
@@ -161,12 +178,12 @@ export default function ContactForm() {
         {isSubmitting ? (
           <>
             <span className="inline-block animate-spin rounded-full h-4 w-4 border-2 border-white border-t-transparent" />
-            Sending...
+            Submitting...
           </>
         ) : (
           <>
             <Send className="h-5 w-5" />
-            Send Message
+            Submit Enquiry
           </>
         )}
       </button>

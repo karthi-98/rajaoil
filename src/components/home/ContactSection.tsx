@@ -4,6 +4,7 @@
 // Displays contact information, enquiry form, and Google Maps
 
 import { useState } from 'react'
+import { submitContactForm } from '@/app/actions/contact'
 
 export default function ContactSection() {
   const [formData, setFormData] = useState({
@@ -16,6 +17,7 @@ export default function ContactSection() {
 
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle')
+  const [errorMessage, setErrorMessage] = useState('')
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setFormData(prev => ({
@@ -28,22 +30,28 @@ export default function ContactSection() {
     e.preventDefault()
     setIsSubmitting(true)
     setSubmitStatus('idle')
+    setErrorMessage('')
 
     try {
-      // Add your form submission logic here
-      // For now, we'll simulate a successful submission
-      await new Promise(resolve => setTimeout(resolve, 1000))
+      const response = await submitContactForm(formData)
 
-      setSubmitStatus('success')
-      setFormData({
-        name: '',
-        mobile: '',
-        email: '',
-        product: '',
-        message: ''
-      })
+      if (response.success) {
+        setSubmitStatus('success')
+        setFormData({
+          name: '',
+          mobile: '',
+          email: '',
+          product: '',
+          message: ''
+        })
+      } else {
+        setSubmitStatus('error')
+        setErrorMessage(response.message)
+      }
     } catch (error) {
+      console.error('Form submission error:', error)
       setSubmitStatus('error')
+      setErrorMessage('Something went wrong. Please try again later.')
     } finally {
       setIsSubmitting(false)
     }
@@ -245,7 +253,7 @@ export default function ContactSection() {
 
             {submitStatus === 'error' && (
               <div className="p-3 bg-red-50 border border-red-200 rounded-lg text-red-700 text-xs">
-                Sorry, there was an error submitting your enquiry. Please try again or contact us directly.
+                {errorMessage || 'Sorry, there was an error submitting your enquiry. Please try again or contact us directly.'}
               </div>
             )}
 
