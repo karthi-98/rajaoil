@@ -11,21 +11,18 @@ const categories = [
   {
     name: "Sesame Oil",
     slug: "sesame",
-    icon: "🌰",
     image: "/images/sesame-oil-bg.jpg",
     description: "Pure and aromatic, perfect for traditional cooking"
   },
   {
     name: "Groundnut Oil",
     slug: "groundnut",
-    icon: "🥜",
     image: "/images/groundnut-oil-bg.jpg",
     description: "Rich nutty flavor, ideal for deep frying"
   },
   {
     name: "Coconut Oil",
     slug: "coconut",
-    icon: "🥥",
     image: "/images/coconut-oil-bg.jpg",
     description: "Fresh and pure, excellent for hair and skin"
   }
@@ -77,10 +74,7 @@ export default function ProductsPage() {
                 <div className="absolute inset-0 bg-black/40 group-hover:bg-black/50 transition-colors"></div>
               </div>
               <div className="relative h-full p-8 flex flex-col items-center justify-center text-center z-10">
-                <div className="text-6xl mb-4 transform group-hover:scale-110 transition-transform duration-300">
-                  {category.icon}
-                </div>
-                <h3 className="text-3xl font-bold text-white mb-3">{category.name}</h3>
+                <h3 className="text-3xl font-bold text-white">{category.name}</h3>
                 <p className="text-white/90 text-base opacity-0 group-hover:opacity-100 transition-opacity duration-300 transform translate-y-4 group-hover:translate-y-0 max-w-xs">
                   {category.description}
                 </p>

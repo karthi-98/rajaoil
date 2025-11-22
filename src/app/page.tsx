@@ -43,8 +43,7 @@ export default function Home() {
               <div className="absolute inset-0 bg-black/40 group-hover:bg-black/50 transition-colors"></div>
             </div>
             <div className="relative h-full p-8 flex flex-col items-center justify-center text-center z-10">
-              <div className="text-5xl mb-4 transform group-hover:scale-110 transition-transform duration-300">🌰</div>
-              <h3 className="text-2xl font-bold text-white mb-2">Sesame Oil</h3>
+              <h3 className="text-2xl font-bold text-white">Sesame Oil</h3>
               <p className="text-white/90 text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300 transform translate-y-4 group-hover:translate-y-0">
                 Pure and aromatic, perfect for traditional cooking
               </p>
@@ -61,8 +60,7 @@ export default function Home() {
               <div className="absolute inset-0 bg-black/40 group-hover:bg-black/50 transition-colors"></div>
             </div>
             <div className="relative h-full p-8 flex flex-col items-center justify-center text-center z-10">
-              <div className="text-5xl mb-4 transform group-hover:scale-110 transition-transform duration-300">🥜</div>
-              <h3 className="text-2xl font-bold text-white mb-2">Groundnut Oil</h3>
+              <h3 className="text-2xl font-bold text-white">Groundnut Oil</h3>
               <p className="text-white/90 text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300 transform translate-y-4 group-hover:translate-y-0">
                 Rich nutty flavor, ideal for deep frying
               </p>
@@ -79,8 +77,7 @@ export default function Home() {
               <div className="absolute inset-0 bg-black/40 group-hover:bg-black/50 transition-colors"></div>
             </div>
             <div className="relative h-full p-8 flex flex-col items-center justify-center text-center z-10">
-              <div className="text-5xl mb-4 transform group-hover:scale-110 transition-transform duration-300">🥥</div>
-              <h3 className="text-2xl font-bold text-white mb-2">Coconut Oil</h3>
+              <h3 className="text-2xl font-bold text-white">Coconut Oil</h3>
               <p className="text-white/90 text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300 transform translate-y-4 group-hover:translate-y-0">
                 Fresh and pure, excellent for hair and skin
               </p>
