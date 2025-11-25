@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Bebas_Neue, Montserrat } from "next/font/google";
+import { Inter, Merriweather, Montserrat } from "next/font/google";
 import "./globals.css";
 import Header from "../components/Header";
 import Footer from "../components/layout/Footer";
@@ -13,10 +13,10 @@ const inter = Inter({
   display: "swap",
 });
 
-const bebasNeue = Bebas_Neue({
+const merriweather = Merriweather({
   subsets: ["latin"],
-  weight: "400",
-  variable: "--font-bebas-neue",
+  weight: ["300", "400", "700", "900"],
+  variable: "--font-merriweather",
   display: "swap",
 });
 
@@ -49,7 +49,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${inter.className} ${bebasNeue.variable} ${montserrat.variable} antialiased`}
+        className={`${inter.className} ${merriweather.variable} ${montserrat.variable} antialiased`}
       >
         <CartProvider>
           <Header />

@@ -36,7 +36,7 @@ export default function Home() {
           <Link href="/products/category/sesame" className="relative group overflow-hidden rounded-2xl shadow-lg hover:shadow-xl transition-shadow h-80 cursor-pointer">
             <div className="absolute inset-0">
               <img
-                src="/images/sesame-oil-bg.jpg"
+                src="/images/sesame-oil.webp"
                 alt="Sesame Oil Background"
                 className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
               />

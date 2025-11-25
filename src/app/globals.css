@@ -71,6 +71,7 @@
     --color-background: var(--background);
     --color-foreground: var(--foreground);
     --font-sans: var(--font-inter);
+    --font-heading: var(--font-merriweather);
     --color-sidebar-ring: var(--sidebar-ring);
     --color-sidebar-border: var(--sidebar-border);
     --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -112,8 +113,8 @@ body {
 }
 
 h1, h2, h3, h4, h5, h6 {
-    font-family: var(--font-bebas-neue), sans-serif;
-    font-weight: 400;
+    font-family: var(--font-merriweather), serif;
+    font-weight: 700;
     letter-spacing: 0.5px;
 }
 

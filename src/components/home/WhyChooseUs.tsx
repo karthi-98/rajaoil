@@ -8,7 +8,8 @@ export default function WhyChooseUs() {
       title: "Clean & Pure Raw Materials",
       points: [
         "We use advanced seed-cleaning machines to remove sand, stones, dust, husk, and impurities.",
-        "Only clean and high-quality sesame seeds go into production."
+        "Remove Immatured seeds",
+        "Only clean and high-quality sesame seeds are taken for crushing"
       ]
     },
     {
@@ -29,7 +30,7 @@ export default function WhyChooseUs() {
       points: [
         "Oil settles naturally in large tanks",
         "Dust settles at the bottom",
-        "Oil is pressure-filtered through filter cloth",
+        "Oil is cleanly filtered through cotton Filter cloth only",
         "No refining • No bleaching • No chemicals",
         "100% natural & pure oil."
       ]
@@ -106,24 +107,14 @@ export default function WhyChooseUs() {
                   <td className="py-4 px-6 text-red-600">✗ Nutrients lost due to heat</td>
                 </tr>
                 <tr className="hover:bg-gray-50 transition-colors">
-                  <td className="py-4 px-6 font-semibold text-gray-900">Aroma & Taste</td>
-                  <td className="py-4 px-6 text-green-600 font-semibold">✓ Natural aroma & traditional taste</td>
+                  <td className="py-4 px-6 font-semibold text-gray-900">Aroma</td>
+                  <td className="py-4 px-6 text-green-600 font-semibold">✓ Natural aroma</td>
                   <td className="py-4 px-6 text-red-600">✗ Mild or no aroma</td>
                 </tr>
                 <tr className="hover:bg-gray-50 transition-colors">
-                  <td className="py-4 px-6 font-semibold text-gray-900">Chemical Processing</td>
-                  <td className="py-4 px-6 text-green-600 font-semibold">✓ No chemicals or refining</td>
-                  <td className="py-4 px-6 text-red-600">✗ Often refined with chemicals</td>
-                </tr>
-                <tr className="hover:bg-gray-50 transition-colors">
-                  <td className="py-4 px-6 font-semibold text-gray-900">Filtration</td>
-                  <td className="py-4 px-6 text-green-600 font-semibold">✓ Natural settling + cloth filtration</td>
-                  <td className="py-4 px-6 text-red-600">✗ Chemical filtration/bleaching</td>
-                </tr>
-                <tr className="hover:bg-gray-50 transition-colors">
-                  <td className="py-4 px-6 font-semibold text-gray-900">Purity</td>
-                  <td className="py-4 px-6 text-green-600 font-semibold">✓ 100% natural & pure</td>
-                  <td className="py-4 px-6 text-red-600">✗ May contain additives</td>
+                  <td className="py-4 px-6 font-semibold text-gray-900">Taste</td>
+                  <td className="py-4 px-6 text-green-600 font-semibold">✓ Traditional taste</td>
+                  <td className="py-4 px-6 text-red-600">✗ No taste</td>
                 </tr>
               </tbody>
             </table>

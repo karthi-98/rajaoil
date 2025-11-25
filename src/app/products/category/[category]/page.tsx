@@ -10,7 +10,7 @@ const categoryConfig: Record<string, { title: string; description: string; icon:
     title: "Sesame Oil",
     description: "Pure and aromatic sesame oil, perfect for traditional cooking. Our sesame oil is cold-pressed to preserve its natural nutrients and authentic flavor.",
     icon: "🌰",
-    bgImage: "/images/sesame-oil-bg.jpg"
+    bgImage: "/images/sesame-oil.webp"
   },
   groundnut: {
     title: "Groundnut Oil",

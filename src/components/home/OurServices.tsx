@@ -61,7 +61,18 @@ export default function OurServices() {
     };
   }, []);
 
-  const services = [
+  interface Service {
+    icon: string;
+    title: string;
+    description?: string;
+    details?: string;
+    points?: string[];
+    footer?: string;
+    platforms?: string[];
+    benefits?: string[];
+  }
+
+  const services: Service[] = [
     {
       icon: "🏪",
       title: "Local Market Trading & Bulk Supply",
@@ -81,26 +92,23 @@ export default function OurServices() {
       footer: "Our oils maintain the traditional flavour and purity that global customers expect."
     },
     {
-      icon: "🏷️",
-      title: "Private Labelling, OEM & Why Partner With Us",
-      description: "We offer full private labelling and contract manufacturing (OEM) for businesses looking to launch or expand their own brand.",
-      subtitle: "Whether you're a retailer, distributor, exporter, or online seller, we produce and pack oil under your brand name, maintaining complete confidentiality.",
-      whatYouGet: [
-        "Your brand label on bottles, pouches, tins, or cans",
-        "Support with design, artwork, and nutrition details",
-        "Proper batch coding, MRP, and FSSAI guidelines",
-        "Reliable production and consistent quality",
-        "Fast delivery for both local and export clients"
+      icon: "🛒",
+      title: "Retail & Online Sales",
+      description: "Purchase our premium quality cooking oils conveniently through multiple channels. We make it easy for customers to access authentic, traditionally processed oils wherever they prefer to shop.",
+      platforms: [
+        "Direct sales through our website with home delivery",
+        "Available on Amazon for quick and reliable delivery",
+        "Listed on BigBasket for grocery convenience",
+        "Featured on other leading e-commerce platforms"
       ],
-      whyPartner: [
-        "3 generations of oil expertise",
-        "Trusted in both local and export markets",
-        "Traditional extraction with modern hygiene",
-        "Pure oils with no chemicals or refining",
-        "Honest pricing with dependable supply",
-        "Strong business support for brand growth"
+      benefits: [
+        "Authentic traditional oils delivered to your doorstep",
+        "Quality assurance with every purchase",
+        "Easy online ordering and secure payment",
+        "Fast delivery across locations",
+        "Customer reviews and ratings for transparency"
       ],
-      footer: "We take care of production — you grow your brand with confidence"
+      footer: "Shop with confidence — pure quality oils, delivered fresh to your home"
     }
   ]
 
@@ -130,10 +138,7 @@ export default function OurServices() {
           {/* Left Column - First Two Services Stacked */}
           <div className="space-y-8">
             {services.slice(0, 2).map((service, index) => (
-              <div
-                key={index}
-                className="bg-white backdrop-blur-sm rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 hover:-translate-y-1"
-              >
+              <div key={index} className="bg-white backdrop-blur-sm rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 hover:-translate-y-1">
                 {/* Header */}
                 <div className="flex items-start gap-4 mb-4">
                   <div className="text-4xl flex-shrink-0">{service.icon}</div>
@@ -141,9 +146,6 @@ export default function OurServices() {
                     <h3 className="text-xl font-bold text-gray-900 mb-2">{service.title}</h3>
                     {service.description && (
                       <p className="text-sm text-gray-700 leading-relaxed">{service.description}</p>
-                    )}
-                    {service.subtitle && (
-                      <p className="text-sm text-gray-700 leading-relaxed mt-2">{service.subtitle}</p>
                     )}
                   </div>
                 </div>
@@ -156,7 +158,7 @@ export default function OurServices() {
                 {/* Points List */}
                 {service.points && (
                   <ul className="space-y-2 mb-4">
-                    {service.points.map((point, idx) => (
+                    {service.points.map((point: string, idx: number) => (
                       <li key={idx} className="flex items-start">
                         <svg className="w-5 h-5 text-primary mt-0.5 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
@@ -176,7 +178,7 @@ export default function OurServices() {
           </div>
 
           {/* Right Column - Third Service */}
-          <div className="bg-white backdrop-blur-sm rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 h-full hover:-translate-y-1">
+          <div className="bg-white backdrop-blur-sm rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 hover:-translate-y-1">
             {/* Header */}
             <div className="flex items-start gap-4 mb-4">
               <div className="text-4xl flex-shrink-0">{services[2].icon}</div>
@@ -185,40 +187,37 @@ export default function OurServices() {
                 {services[2].description && (
                   <p className="text-sm text-gray-700 leading-relaxed">{services[2].description}</p>
                 )}
-                {services[2].subtitle && (
-                  <p className="text-sm text-gray-700 leading-relaxed mt-2">{services[2].subtitle}</p>
-                )}
               </div>
             </div>
 
-            {/* What You Get Section */}
-            {services[2].whatYouGet && (
-              <div className="mt-6 bg-gradient-to-br from-primary/5 to-primary/10 rounded-xl p-5">
-                <h4 className="text-base font-bold text-gray-900 mb-3">What You Get</h4>
+            {/* Platforms */}
+            {services[2].platforms && (
+              <div className="mt-6 bg-gradient-to-br from-orange-50 to-orange-100 rounded-xl p-5">
+                <h4 className="text-base font-bold text-gray-900 mb-3">Where to Buy</h4>
                 <ul className="space-y-2">
-                  {services[2].whatYouGet.map((item, idx) => (
+                  {services[2].platforms.map((platform: string, idx: number) => (
                     <li key={idx} className="flex items-start">
-                      <svg className="w-4 h-4 text-primary mt-0.5 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <svg className="w-4 h-4 text-orange-600 mt-0.5 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                       </svg>
-                      <span className="text-sm text-gray-700">{item}</span>
+                      <span className="text-sm text-gray-700">{platform}</span>
                     </li>
                   ))}
                 </ul>
               </div>
             )}
 
-            {/* Why Partner Section */}
-            {services[2].whyPartner && (
+            {/* Benefits */}
+            {services[2].benefits && (
               <div className="mt-6 bg-gradient-to-br from-green-50 to-green-100 rounded-xl p-5">
-                <h4 className="text-base font-bold text-gray-900 mb-3">Why Partner With Us</h4>
+                <h4 className="text-base font-bold text-gray-900 mb-3">Shopping Benefits</h4>
                 <ul className="space-y-2">
-                  {services[2].whyPartner.map((item, idx) => (
+                  {services[2].benefits.map((benefit: string, idx: number) => (
                     <li key={idx} className="flex items-start">
                       <svg className="w-4 h-4 text-green-600 mt-0.5 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                       </svg>
-                      <span className="text-sm text-gray-700">{item}</span>
+                      <span className="text-sm text-gray-700">{benefit}</span>
                     </li>
                   ))}
                 </ul>
@@ -230,6 +229,39 @@ export default function OurServices() {
               <p className="text-sm text-gray-700 font-medium mt-6 italic">{services[2].footer}</p>
             )}
           </div>
+        </div>
+
+        {/* Separate CTA Section Below Grid */}
+        <div className="mt-16">
+          <a
+            href="/private-labelling"
+            className="block bg-gradient-to-br from-gray-50 to-white border-2 border-gray-200 rounded-2xl p-6 md:p-10 shadow-md hover:shadow-xl transition-all duration-300 hover:border-primary group"
+          >
+            <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+              {/* Left Side - Content */}
+              <div className="flex items-center gap-6 flex-1">
+                <div className="bg-primary/10 rounded-2xl p-2 group-hover:bg-primary/20 transition-colors duration-300">
+                  <span className="text-3xl">🏷️</span>
+                </div>
+                <div className="text-left">
+                  <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-primary transition-colors duration-300">
+                    Our Oil, Your Brand
+                  </h3>
+                  <p className="text-gray-600 text-sm">
+                    Private Labelling & OEM Solutions for Your Business
+                  </p>
+                </div>
+              </div>
+
+              {/* Right Side - CTA */}
+              <div className="flex items-center gap-3 bg-primary text-white px-8 py-4 rounded-xl group-hover:bg-primary/90 transition-all duration-300 shadow-md group-hover:shadow-lg group-hover:scale-105">
+                <span className="font-semibold text-lg">Learn More</span>
+                <svg className="w-6 h-6 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                </svg>
+              </div>
+            </div>
+          </a>
         </div>
       </div>
     </section>

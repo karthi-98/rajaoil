@@ -11,7 +11,7 @@ const categories = [
   {
     name: "Sesame Oil",
     slug: "sesame",
-    image: "/images/sesame-oil-bg.jpg",
+    image: "/images/sesame-oil.webp",
     description: "Pure and aromatic, perfect for traditional cooking"
   },
   {
