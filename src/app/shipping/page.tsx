@@ -23,7 +23,7 @@ const shippingOptions = [
     description: 'Reliable delivery for all orders',
     deliveryTime: '5-7 Business Days',
     coverage: 'All locations in India',
-    cost: 'Free on orders above ₹499',
+    cost: 'Actual fee - No free shipping',
   },
   {
     icon: Clock,
@@ -31,7 +31,7 @@ const shippingOptions = [
     description: 'Fast delivery to major cities',
     deliveryTime: '2-3 Business Days',
     coverage: 'Metro cities only',
-    cost: '₹99 (Free on orders above ₹999)',
+    cost: 'Actual fee - No free shipping',
   },
 ]
 

@@ -73,27 +73,19 @@ export default function ContactPage() {
         {/* Contact Section */}
         <section className="pb-16 md:pb-24">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid lg:grid-cols-2 gap-12">
-              {/* Contact Form */}
-              <div>
-                <h2 className="text-3xl font-bold text-gray-900 mb-6">
-                  Send Us a Message
-                </h2>
-                <p className="text-gray-600 mb-8">
-                  Fill out the form below and we&apos;ll get back to you as soon as possible.
-                </p>
-                <ContactForm />
-              </div>
-
+            <div className="grid lg:grid-cols-2 gap-8">
               {/* Contact Information */}
               <div>
-                <h2 className="text-3xl font-bold text-gray-900 mb-6">
-                  Get In Touch
-                </h2>
-                <p className="text-gray-600 mb-8">
-                  You can also reach us through any of the following methods:
-                </p>
                 <ContactInfo />
+              </div>
+
+              {/* Contact Form */}
+              <div className="bg-white rounded-2xl p-6 shadow-lg">
+                <h3 className="text-lg font-bold text-gray-900 mb-4">
+                  <span className="inline-block mr-2">📩</span>
+                  Enquiry Form
+                </h3>
+                <ContactForm />
               </div>
             </div>
           </div>

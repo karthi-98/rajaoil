@@ -9,7 +9,7 @@ export default function WhyChooseUs() {
       points: [
         "We use advanced seed-cleaning machines to remove sand, stones, dust, husk, and impurities.",
         "Remove Immatured seeds",
-        "Only clean and high-quality sesame seeds are taken for crushing"
+        "Only clean and high-quality fully matured seeds are taken for crushing"
       ]
     },
     {
@@ -113,7 +113,7 @@ export default function WhyChooseUs() {
                 </tr>
                 <tr className="hover:bg-gray-50 transition-colors">
                   <td className="py-4 px-6 font-semibold text-gray-900">Taste</td>
-                  <td className="py-4 px-6 text-green-600 font-semibold">✓ Traditional taste</td>
+                  <td className="py-4 px-6 text-green-600 font-semibold">✓ Rational sweet taste</td>
                   <td className="py-4 px-6 text-red-600">✗ No taste</td>
                 </tr>
               </tbody>

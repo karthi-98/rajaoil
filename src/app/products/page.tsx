@@ -125,7 +125,7 @@ export default function ProductsPage() {
               </div>
               <h3 className="text-xl font-semibold text-gray-900 mb-2">Quality Assured</h3>
               <p className="text-gray-600">
-                Every batch is tested for quality and purity to ensure you get the best product every time.
+                Every batch is tested in NABL accredited lab for quality and purity to ensure you get the best product every time.
               </p>
             </div>
 

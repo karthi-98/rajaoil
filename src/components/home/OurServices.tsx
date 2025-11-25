@@ -77,7 +77,7 @@ export default function OurServices() {
       icon: "🏪",
       title: "Local Market Trading & Bulk Supply",
       description: "We supply high-quality gingelly, groundnut, and coconut oil to retailers, wholesalers, supermarkets, restaurants, sweet and snack manufacturers, bakeries, and catering units.",
-      details: "For bulk buyers, we offer 5L / 10L / 15L cans, 15kg tins, and 200L barrels, ensuring consistent quality, timely delivery, and reliable long-term supply for all business requirements."
+      details: "For bulk buyer we offer Tankers (10 or 12 tons), 200 Lit barrels, 15kg tin, 5 litres, 1 lit, 500ml, 200ml, 100ml, 50ml both pouch and jars in 10 litre cartoon box."
     },
     {
       icon: "🌍",
@@ -85,7 +85,7 @@ export default function OurServices() {
       points: [
         "Strict quality selection",
         "Hygienic handling and packing",
-        "Export-grade container drums",
+        "Export grade container (Pet jar, Glass jar and Pouches)",
         "Support for documentation & logistics",
         "Regular supply for long-term clients"
       ],
@@ -97,9 +97,9 @@ export default function OurServices() {
       description: "Purchase our premium quality cooking oils conveniently through multiple channels. We make it easy for customers to access authentic, traditionally processed oils wherever they prefer to shop.",
       platforms: [
         "Direct sales through our website with home delivery",
-        "Available on Amazon for quick and reliable delivery",
-        "Listed on BigBasket for grocery convenience",
-        "Featured on other leading e-commerce platforms"
+        "Available on Amazon for quick and reliable delivery - Upcoming",
+        "Listed on BigBasket for grocery convenience - Upcoming",
+        "Featured on other leading e-commerce platforms - Upcoming"
       ],
       benefits: [
         "Authentic traditional oils delivered to your doorstep",
