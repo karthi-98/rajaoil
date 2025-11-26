@@ -11,35 +11,61 @@ interface BreadcrumbProps {
 }
 
 export function Breadcrumb({ items }: BreadcrumbProps) {
+  // Generate structured data for breadcrumbs for SEO
+  const breadcrumbSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Home',
+        item: 'https://sreeraajaganapathyoilmill.com',
+      },
+      ...items.map((item, index) => ({
+        '@type': 'ListItem',
+        position: index + 2,
+        name: item.label,
+        item: `https://sreeraajaganapathyoilmill.com${item.href}`,
+      })),
+    ],
+  }
+
   return (
-    <nav aria-label="Breadcrumb" className="mb-6">
-      <ol className="flex items-center space-x-2 text-sm text-gray-600">
-        <li>
-          <Link
-            href="/"
-            className="hover:text-primary transition-colors"
-          >
-            Home
-          </Link>
-        </li>
-        {items.map((item, index) => (
-          <li key={item.href} className="flex items-center space-x-2">
-            <ChevronRight className="w-4 h-4 text-gray-400" />
-            {index === items.length - 1 ? (
-              <span aria-current="page" className="font-medium text-gray-900">
-                {item.label}
-              </span>
-            ) : (
-              <Link
-                href={item.href}
-                className="hover:text-primary transition-colors"
-              >
-                {item.label}
-              </Link>
-            )}
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+      <nav aria-label="Breadcrumb" className="mb-6">
+        <ol className="flex items-center space-x-2 text-sm text-gray-600">
+          <li>
+            <Link
+              href="/"
+              className="hover:text-primary transition-colors"
+            >
+              Home
+            </Link>
           </li>
-        ))}
-      </ol>
-    </nav>
+          {items.map((item, index) => (
+            <li key={item.href} className="flex items-center space-x-2">
+              <ChevronRight className="w-4 h-4 text-gray-400" />
+              {index === items.length - 1 ? (
+                <span aria-current="page" className="font-medium text-gray-900">
+                  {item.label}
+                </span>
+              ) : (
+                <Link
+                  href={item.href}
+                  className="hover:text-primary transition-colors"
+                >
+                  {item.label}
+                </Link>
+              )}
+            </li>
+          ))}
+        </ol>
+      </nav>
+    </>
   )
 }

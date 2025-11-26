@@ -77,23 +77,20 @@ export default function Header() {
   }
 
   return (
-    <header className="sticky top-0 z-30 w-full bg-white border-b border-gray-200 shadow-sm h-[10vh]">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full">
+    <header className="sticky top-0 z-30 w-full bg-white border-b border-gray-200 shadow-sm h-[12vh]">
+      <div className=" mx-auto px-4 sm:px-6 lg:px-8 h-full">
         <div className="flex lg:grid lg:grid-cols-3 items-center justify-between lg:justify-normal h-full">
           {/* Logo - Left */}
           <div className="flex justify-start">
             <Link href="/" className="flex-shrink-0 flex items-center gap-2 lg:gap-3">
               <Image
-                src="/images/logo_image.webp"
+                src="/images/logo_new.png"
                 alt="sreeraajaganapathy Oil Mill"
-                width={50}
-                height={50}
-                className="h-10 w-10 lg:h-12 lg:w-12 object-contain"
+                width={1200}
+                height={1200}
+                className="h-[8vh] w-fit object-contain"
                 priority
               />
-              <span className="text-black font-bold text-[13px] lg:text-[16px] tracking-tight">
-                SREE RAAJA GANAPATHY OIL MILL
-              </span>
             </Link>
           </div>
 

@@ -7,7 +7,7 @@ export default function LoadingScreen() {
         {/* Logo with pulse animation */}
         <div className="mb-8 animate-pulse flex flex-col items-center gap-4">
           <Image
-            src="/images/logo_image.webp"
+            src="/images/logo_new.png"
             alt="sreeraajaganapathy Oil Mill"
             width={80}
             height={80}

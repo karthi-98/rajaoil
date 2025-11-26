@@ -87,7 +87,7 @@ export default async function CategoryPage({ params }: Props) {
         />
         <div className="absolute inset-0 bg-black/50" />
         <div className="relative z-10 text-center text-white px-4">
-          <div className="text-6xl mb-4">{config.icon}</div>
+          {/* <div className="text-6xl mb-4">{config.icon}</div> */}
           <h1 className="text-4xl md:text-5xl font-bold mb-4">{config.title}</h1>
           <p className="text-lg md:text-xl max-w-2xl mx-auto opacity-90">
             {config.description}

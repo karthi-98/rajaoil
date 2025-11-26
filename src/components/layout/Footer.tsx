@@ -14,17 +14,14 @@ export default function Footer() {
           <div className="space-y-4">
             <div className="mb-4 flex items-center gap-3">
               <Image
-                src="/images/logo_image.webp"
+                src="/images/logo_new.png"
                 alt="sreeraajaganapathy Oil Mill"
-                width={50}
-                height={50}
-                className="h-12 w-12"
+                width={1200}
+                height={1200}
+                className="h-12 w-fit"
               />
-              <span className="text-white font-bold text-[14px]">
-                SREERAAJAGANAPATHYOILMILL
-              </span>
             </div>
-            
+
             <p className="text-sm leading-relaxed">
               Premium quality cooking oils crafted with care. Your trusted source for pure and authentic oil products since our establishment.
             </p>

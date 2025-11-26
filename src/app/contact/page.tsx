@@ -10,7 +10,7 @@ export const metadata: Metadata = {
     title: 'Contact Us - sreeraajaganapathy Oil Mill',
     description: 'Get in touch with us for inquiries, orders, or support.',
     type: 'website',
-    images: [{ url: '/images/logo_image.webp', width: 1200, height: 630 }],
+    images: [{ url: '/images/logo_new.png', width: 1200, height: 630 }],
   },
   alternates: {
     canonical: 'https://rajaoil.com/contact',
@@ -22,7 +22,7 @@ export default function ContactPage() {
     '@context': 'https://schema.org',
     '@type': 'LocalBusiness',
     name: 'sreeraajaganapathy Oil Mill',
-    image: 'https://rajaoil.com/images/logo_image.webp',
+    image: 'https://rajaoil.com/images/logo_new.png',
     '@id': 'https://rajaoil.com',
     url: 'https://rajaoil.com',
     telephone: '+91-86789-81221',
@@ -117,7 +117,7 @@ export default function ContactPage() {
                 className="inline-flex items-center gap-2 text-primary hover:text-primary/80 font-medium transition-colors"
               >
                 <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+                  <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" />
                 </svg>
                 View on Google Maps
               </a>

@@ -10,7 +10,7 @@ export const metadata: Metadata = {
     title: 'Blog - sreeraajaganapathy Oil Mill',
     description: 'Coming soon! Read articles about cooking oils, health benefits, and delicious recipes.',
     type: 'website',
-    images: [{ url: '/images/logo_image.webp', width: 1200, height: 630 }],
+    images: [{ url: '/images/logo_new.png', width: 1200, height: 630 }],
   },
   alternates: {
     canonical: 'https://rajaoil.com/blog',

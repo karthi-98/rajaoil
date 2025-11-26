@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     title: 'About Us - sreeraajaganapathy Oil Mill',
     description: 'Learn about sreeraajaganapathy Oil Mill, a trusted name in premium cooking oils.',
     type: 'website',
-    images: [{ url: '/images/logo_image.webp', width: 1200, height: 630 }],
+    images: [{ url: '/images/logo_new.png', width: 1200, height: 630 }],
   },
   alternates: {
     canonical: 'https://rajaoil.com/about',
@@ -48,7 +48,7 @@ export default function AboutPage() {
     name: 'sreeraajaganapathy Oil Mill',
     alternateName: 'Raja Oil',
     url: 'https://rajaoil.com',
-    logo: 'https://rajaoil.com/images/logo_image.webp',
+    logo: 'https://rajaoil.com/images/logo_new.png',
     description: 'Premium cooking oil manufacturer committed to quality, purity, and tradition.',
     foundingDate: '1990',
     address: {
@@ -106,7 +106,7 @@ export default function AboutPage() {
               </div>
               <div className="relative h-[400px] md:h-[500px] rounded-lg overflow-hidden">
                 <Image
-                  src="/images/logo_image.webp"
+                  src="/images/logo_new.png"
                   alt="sreeraajaganapathy Oil Mill"
                   fill
                   className="object-contain p-8"
